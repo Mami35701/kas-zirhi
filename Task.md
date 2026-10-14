@@ -90,3 +90,13 @@
 - [x] Tıbbi Şeffaflık: Jenerik "9 uzman onaylı" yerine yasal ve klinik "AI Destekli Biyomekanik Taslak & Takip Kokpiti" konumlandırması
 - [x] Playwright E2E Döngü 7 Testi: 0 konsol hatası ile tüm sekmeler, modallar ve reaktif kurallar doğrulandı
 
+## Faz I: Arşivden Çıkarma, Git Yönetimi ve Canlıya Dağıtım (GitHub Pages)
+- [x] Proje `_Arsiv/Salon Proje v2.md` konumundan çıkarılıp `c:\Users\imama\OneDrive\Masaüstü\PROJELER\Kas_Zirhi` kök dizinine taşındı
+- [x] `proje.py` tarafından tanınması ve standart dosya yapısının (`CONTEXT.md`, `Task.md`, `SPEC.md`, `.agents`) doğrulanması
+- [x] GitHub üzerinde `Mami35701/kas-zirhi` reposunun API üzerinden oluşturulması
+- [x] Git repository başlatılması, `main` dalına tüm kaynak ve dokümanların commit/push edilmesi
+- [x] `dist/` klasörünün `gh-pages` dalına subtree olarak yüklenmesi ve GitHub Pages'in kök dizin olarak aktif edilmesi
+- [x] PWA Service Worker (`sw.js`) ve `manifest.json` canlı HTTPS ortamında HTTP 200 ile doğrulanması
+- [x] Canlı PWA URL'inin teslim edilmesi: `https://mami35701.github.io/kas-zirhi/`
+
+
