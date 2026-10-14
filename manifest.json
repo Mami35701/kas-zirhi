@@ -1,0 +1,29 @@
+{
+  "name": "Kas Zırhı — Kişiye Özel Rehabilitasyon & Kuvvet Platformu",
+  "short_name": "Kas Zırhı",
+  "description": "Boyun fıtığı, aşil tendinopatisi ve sol kol asimetrisi için 4 fazlı klinik antrenman ve rehabilitasyon kokpiti",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a0e1a",
+  "theme_color": "#0a0e1a",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
