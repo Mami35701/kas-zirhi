@@ -24,9 +24,11 @@
 | Tarih Hatırlatıcı | Date() bazlı dinamik faz ve uyarı motoru | 14.10.2026 | 14 Eki, 2 Kas, 9 Kas, 2 Ara, 5 Ara ve tahlil tarihlerini otomatik algılama |
 | Canlı Dağıtım | GitHub Pages (https://mami35701.github.io/kas-zirhi/) | 14.10.2026 | HTTPS, sıfır maliyet, anında PWA kurulabilir mobil ve offline erişim |
 | Dosya Boyutu Kısıtı | 500 KB Yapay Sınırı Kaldırıldı | 15.10.2026 | Kullanıcı onayıyla kaldırıldı; Gzip/Brotli ve PWA önbelleklemesi ile performans ve sıfır sürtünmeli UX önceliklendirildi |
-| Çevrimdışı Varlıklar | Service Worker v1.5 (26/26 Offline GIF) | 15.10.2026 | Tüm 26 egzersiz animasyonu tam önbelleğe alındı, %100 anatomik uyum |
+| Çevrimdışı Varlıklar | Service Worker v1.6 (26/26 Offline GIF) | 15.10.2026 | Tüm 26 egzersiz animasyonu tam önbelleğe alındı, %100 anatomik uyum |
 | Aktif Seans Kurtarma | LocalStorage (`kas_zirhi_active_session`) | 15.10.2026 | Antrenman ortasında tarayıcı çökse veya kapansa bile tamamlanan setler anında korunur |
 | Veri Formatı | v2 Bütüncül (Omnibus) Kayıpsız JSON | 15.10.2026 | Antrenman, sabah aşil, anlık triyaj, alışkanlıklar ve checklistler tek dosyada export/import |
+| Unilateral Telemetri | Sol/Sağ Bağımsız Set Kaydı | 15.10.2026 | 6 tek taraflı egzersizde sol öncelikli bağımsız set takibi ve asimetri grafiği entegrasyonu |
+| Klinik Ağrı Triyajı | 3 Bölge Bağımsız Seans Sonu Skoru | 15.10.2026 | Boyun C5-7, Sol Omuz ve Aşil için çapraz bulaşmasız bağımsız triyaj |
 
 ---
 
@@ -36,26 +38,27 @@
 - GÜN 1-7 planında Pzt-Çar-Cum sabit takvim günü algısı: 14 Ekim Çarşamba başladığı için seanslar Gün 1, Gün 2, Gün 3 şeklinde dinamik gösterilecektir.
 - 30 Ekim - 1 Kasım arası: Geçiş dönemi olarak işaretlenmiş, yolculuk hazırlığı önerilmiştir.
 - Pec Deck için göğüs presi, DB Row için kablo çekiş, Heel Drop için düz kalf, Foam Roller için dinamik esneme görselleri GEÇERSİZDİR; ExerciseDB gerçeğe uygun anatomik GIF'lerle değiştirilmiştir.
+- Unilateral egzersizlerde sabit `side: 'cift'` ve seans sonu toptancı `painVal >= 4` kuralı GEÇERSİZDİR; Faz M ile bağımsız giriş sistemine geçilmiştir.
 
 ---
 
 ## Mevcut Durum
-Proje arşivden çıkarıldı, `Kas_Zirhi` adıyla ana projeler dizinine taşındı ve GitHub Pages üzerinde canlıya alındı. Kapsamlı audit, salon refaktörü (Faz J), "Makine Doluysa Alternatif" klinik refaktörü (Faz K) ve "Egzersiz Görsel & Animasyon Doğruluk Refaktörü" (Faz L) tamamlandı.
+Proje arşivden çıkarıldı, `Kas_Zirhi` adıyla ana projeler dizinine taşındı ve GitHub Pages üzerinde canlıya alındı. Kapsamlı audit, salon refaktörü (Faz J), "Makine Doluysa Alternatif" klinik refaktörü (Faz K), "Egzersiz Görsel & Animasyon Doğruluk Refaktörü" (Faz L) ve "7 Kritik Audit Açığının Refaktörü" (Faz M) tamamlandı.
 - **Konum:** `c:\Users\imama\OneDrive\Masaüstü\PROJELER\Kas_Zirhi`
 - **GitHub Reposu:** https://github.com/Mami35701/kas-zirhi
 - **Canlı PWA URL:** https://mami35701.github.io/kas-zirhi/
 - `dist/index.html`: 5 sekmeli alt menü (`Bugün`, `Antrenman`, `Kayıt`, `Plan`, `Güvenlik`). Safe-area inset uyumlu, mini timer ile çakışmasız, modal z-index 10005 ile tam katmanlama.
-- **Bugün Kokpiti:** Gerçek Türkçe tarih, son seans izleme, 5 saniyelik sabah aşil skoru (0-10, ≥5 reaktif kural uyarısı), dev "Antrenmanı Başlat (Salon Modu)" butonu ve çekirdek 3 görev.
-- **Salon Antrenman Modu:** Alt gün sekmeleri (Gün 1-3, Gün 4-7), anlık set kurtarma, "Antrenmanı Bitir" modalı (süre, RPE, seans ağrı puanı kaydı), dinamik "Makine Doluysa Alternatif" sistemi (30 makine muadili, ağırlık rehberi, karta anlık uygulama ve veri kirliliği koruması), "Ağrı / Semptom Bildir" triyaj motoru.
-- **Egzersiz Animasyonları & PWA:** `dist/manifest.json`, `dist/sw.js` (v1.5) ve `dist/exercises/` (26/26 gerçeğe uygun 180×180 animasyonlu GIF tam paket, ExerciseDB kaynaklı).
-- **Veri Güvenliği:** v2 kayıpsız JSON yedekleme/geri yükleme; muadil egzersizler log kütüğüne `isAlternative: true` ile yazılır, makine temel ağırlığı kirlenmez.
-- **Test Doğrulaması:** Varlık bütünlüğü, kart haritalama ve Playwright E2E Döngü 10 testleri (3 aşamalı test paketi) %100 başarı ve sıfır konsol hatasıyla geçti.
+- **Bugün Kokpiti:** Gerçek cihaz tarihi senkronizasyonu, son seans izleme, 5 saniyelik sabah aşil skoru (0-10), akıllı antrenman başlatma döngüsü (Gün 1'den Gün 7'ye ve Hafta 3'e tam progresyon).
+- **Salon Antrenman Modu:** Alt gün sekmeleri (Gün 1-3, Gün 4-7), tek taraflı egzersizlerde Sol/Sağ bağımsız set takibi (sol öncelikli kuralı), dinamik RPE rozet okuma, stepper NaN kalkanı, "Makine Doluysa Alternatif" sistemi (30 makine muadili), "Ağrı / Semptom Bildir" anlık triyajı ve 3 bağımsız klinik bölge (Boyun C5-7, Sol Omuz, Aşil) seans sonu triyajı.
+- **Egzersiz Animasyonları & PWA:** `dist/manifest.json`, `dist/sw.js` (v1.6) ve `dist/exercises/` (26/26 gerçeğe uygun 180×180 animasyonlu GIF tam paket, ExerciseDB kaynaklı).
+- **Veri Güvenliği:** v2 kayıpsız JSON yedekleme/geri yükleme; gerçek Sol/Sağ telemetrisi ile asimetri barı; dürüst yaşam tarzı kütüğü.
+- **Test Doğrulaması:** 7 audit açığının Playwright E2E otomasyon testi (`scratch/verify_all_7_fixes.py`) 6/6 başarı ve 0 konsol hatasıyla onaylandı.
 
 ---
 
 ## Sıradaki Adım
 1. Git repo güncellemelerinin (`main` ve `gh-pages` subtree) GitHub'a push edilmesi.
-2. Kullanıcının telefonunda (Pixel 9 Pro XL) https://mami35701.github.io/kas-zirhi/ adresinde PWA v1.5 güncellemesini alması.
+2. Kullanıcının telefonunda (Pixel 9 Pro XL) https://mami35701.github.io/kas-zirhi/ adresinde PWA v1.6 güncellemesini alması.
 
 
 ---

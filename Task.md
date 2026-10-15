@@ -140,3 +140,14 @@
   2. Kart haritalama doğruluğu (60/60 kart hatasız)
   3. Gerçek tarayıcı runtime E2E testi (0 kırık görsel, 0 konsol hatası, modal ve muadil uygulama/geri alma döngüsü %100 başarılı)
 - [x] Detaylı biyomekanik doğruluk karşılaştırma raporu oluşturuldu (`docs/BIOMECHANICAL_ACCURACY_REPORT.md`)
+
+## Faz M: 7 Kritik Audit Açığının Refaktörü ve E2E Doğrulaması
+- [x] Unilateral Set Kaydı & Asimetri Telemetrisi: `side: 'cift'` hardcode kaldırıldı; 6 unilateral kartta [Sol] / [Sağ] seçici ve sol öncelikli bağımsız set takibi sağlandı
+- [x] Bağımsız 3 Bölge Seans Sonu Ağrı Triyajı: Toptancı ağrı yerine Boyun C5-7, Sol Omuz ve Aşil için bağımsız (0, 2, 5+) giriş sağlandı
+- [x] Akıllı Antrenman Progresyon Döngüsü: `TodayEngine.startWorkoutSmart` fonksiyonu Gün 1'den Gün 7'ye ve Hafta 3 konsolidasyonuna kadar tam döngülü hale getirildi
+- [x] Dinamik Gerçek Tarih Senkronizasyonu: `DateSimulatorEngine` varsayılan olarak cihazın gerçek `new Date()` değerine bağlandı
+- [x] Stepper NaN Güvenlik Kalkanı: `stepWeight` ve `stepReps` içerisindeki string dönüşüm ve `NaN` zafiyetleri korumaya alındı
+- [x] Dinamik RPE Hedeflemesi: Sabit `rpe: 8` yerine kart rozetinden veya faz kurallarından (Hafta 1: RPE 6, Hafta 2-3: RPE 8) dinamik atama sağlandı
+- [x] Dürüst Yaşam Tarzı Metrikleri: Sahte `sleep_hours: 7.5, water_liters: 3.5` mock değerleri kaldırıldı, dürüst veri kütüğü tesis edildi
+- [x] Service Worker v1.6: `dist/sw.js` önbellek sürümü güncellendi
+- [x] Kapsamlı Playwright E2E Doğrulaması (`scratch/verify_all_7_fixes.py`): 6/6 test başarıyla geçti, 0 konsol hatası alındı
