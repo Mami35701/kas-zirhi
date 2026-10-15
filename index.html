@@ -973,7 +973,7 @@ tr:hover td {
   .hero-card { padding: 20px; }
   .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
   .nav-brand span.text { display: none; }
-  .mini-timer-bar { bottom: 10px; right: 10px; padding: 8px 14px; }
+  .mini-timer-bar { bottom: calc(76px + env(safe-area-inset-bottom, 0px)); right: 12px; padding: 8px 14px; }
 }
 
 /* ============================================================
@@ -1390,7 +1390,7 @@ tr:hover td {
    5-TAB BOTTOM NAVIGATION & VIEW SYSTEM
    ============================================================ */
 body {
-  padding-bottom: 80px !important;
+  padding-bottom: calc(96px + env(safe-area-inset-bottom, 0px)) !important;
 }
 
 .view-section {
@@ -1420,6 +1420,7 @@ body {
   justify-content: space-around;
   align-items: center;
   padding: 6px 12px;
+  padding-bottom: calc(8px + env(safe-area-inset-bottom, 0px));
   max-width: 1400px;
   margin: 0 auto;
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
@@ -1760,6 +1761,93 @@ body {
   line-height: 1.5;
 }
 
+  
+/* ============================================================
+   SUB-DAY TAB NAVIGATION (ERGONOMIC FOCUS)
+   ============================================================ */
+.day-tab-nav {
+  display: flex;
+  gap: 8px;
+  margin: 14px 0 18px 0;
+  overflow-x: auto;
+  padding: 4px 2px 8px 2px;
+  -webkit-overflow-scrolling: touch;
+}
+.day-tab-btn {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: inherit;
+  touch-action: manipulation;
+}
+.day-tab-btn:hover {
+  border-color: var(--blue);
+  color: var(--text);
+}
+.day-tab-btn.active {
+  background: rgba(59, 130, 246, 0.15);
+  border-color: var(--blue);
+  color: #60a5fa;
+  box-shadow: 0 0 12px var(--blue-glow);
+}
+.workout-day-pane {
+  display: none;
+}
+.workout-day-pane.active {
+  display: block;
+  animation: fadeInView 0.25s ease;
+}
+
+/* ============================================================
+   FINISH WORKOUT STICKY ACTION BAR & MODAL
+   ============================================================ */
+.finish-workout-bar {
+  background: rgba(17, 24, 39, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5), 0 0 12px rgba(16, 185, 129, 0.2);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin: 16px 0 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.btn-finish-workout {
+  background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 12px 22px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4);
+  transition: all 0.2s ease;
+  font-family: inherit;
+  touch-action: manipulation;
+}
+.btn-finish-workout:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+}
+
   </style>
 </head>
 <body>
@@ -1838,7 +1926,7 @@ body {
         </div>
 
         <!-- Big Start Workout Action Button -->
-        <button type="button" class="btn-start-gym" onclick="NavigationEngine.switchTab('workout')">
+        <button type="button" class="btn-start-gym" onclick="TodayEngine.startWorkoutSmart()">
           <span>🏋️‍♂️</span>
           <span>Antrenmanı Başlat (Salon Modu)</span>
           <span>➔</span>
@@ -1907,11 +1995,34 @@ body {
           <button class="tab-btn" onclick="switchTab('workoutTabContainer', 'tabWeek3', this)">Hafta 3: Konsolidasyon</button>
         </div>
 
+        <!-- HIZLI SEANS BİTİRME & SENKRONİZASYON BARI -->
+        <div class="finish-workout-bar" id="finishWorkoutBar">
+          <div style="flex: 1; min-width: 220px;">
+            <div id="finishBarSummary" style="font-weight: 700; color: #10b981; font-size: 0.95rem;">
+              ⚡ Antrenman Durumu: 0 Set Tamamlandı
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 2px;">
+              Setlerinizi tamamladıktan sonra tek dokunuşla seans kütüğüne kaydedin.
+            </div>
+          </div>
+          <button type="button" class="btn-finish-workout" onclick="QuickSetEngine.openFinishModal()">
+            <span>✅</span> <span>Antrenmanı Bitir & Kaydet</span>
+          </button>
+        </div>
+
         <div id="workoutTabContainer">
           <!-- HAFTA 1 -->
           <div id="tabWeek1" class="tab-content active">
-            
-    <div class="card" style="margin-bottom: 24px;">
+
+            <!-- HAFTA 1 GÜN SEÇİCİ -->
+            <div class="day-tab-nav" id="week1DayNav">
+              <button type="button" class="day-tab-btn active" onclick="switchWorkoutDay('tabWeek1', 'day_w1d1', this)">📅 Gün 1: Full Body A</button>
+              <button type="button" class="day-tab-btn" onclick="switchWorkoutDay('tabWeek1', 'day_w1d2', this)">📅 Gün 2: Full Body B</button>
+              <button type="button" class="day-tab-btn" onclick="switchWorkoutDay('tabWeek1', 'day_w1d3', this)">📅 Gün 3: Full Body A+</button>
+            </div>
+
+            <div id="day_w1d1" class="workout-day-pane active">
+              <div class="card" style="margin-bottom: 24px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
         <div>
           <h3 style="color: #fff; font-size: 1.25rem;">Hafta 1 — Gün 1 (Full Body A)</h3>
@@ -2753,8 +2864,10 @@ body {
     </div>
     
     </div>
-    
-    <div class="card" style="margin-bottom: 24px;">
+            </div>
+
+            <div id="day_w1d2" class="workout-day-pane">
+              <div class="card" style="margin-bottom: 24px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
         <div>
           <h3 style="color: #fff; font-size: 1.25rem;">Hafta 1 — Gün 2 (Full Body B)</h3>
@@ -3276,8 +3389,10 @@ body {
     </div>
     
     </div>
-    
-    <div class="card" style="margin-bottom: 24px;">
+            </div>
+
+            <div id="day_w1d3" class="workout-day-pane">
+              <div class="card" style="margin-bottom: 24px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
         <div>
           <h3 style="color: #fff; font-size: 1.25rem;">Hafta 1 — Gün 3 (Full Body A+)</h3>
@@ -3874,13 +3989,22 @@ body {
     </div>
     
     </div>
-    
+            </div>
           </div>
 
           <!-- HAFTA 2 -->
           <div id="tabWeek2" class="tab-content">
-            
-    <div class="card" style="margin-bottom: 24px;">
+
+            <!-- HAFTA 2 GÜN SEÇİCİ -->
+            <div class="day-tab-nav" id="week2DayNav">
+              <button type="button" class="day-tab-btn active" onclick="switchWorkoutDay('tabWeek2', 'day_w2d4', this)">📅 Gün 4: Upper Body A</button>
+              <button type="button" class="day-tab-btn" onclick="switchWorkoutDay('tabWeek2', 'day_w2d5', this)">📅 Gün 5: Lower + Aşil</button>
+              <button type="button" class="day-tab-btn" onclick="switchWorkoutDay('tabWeek2', 'day_w2d6', this)">📅 Gün 6: Upper Body B</button>
+              <button type="button" class="day-tab-btn" onclick="switchWorkoutDay('tabWeek2', 'day_w2d7', this)">📅 Gün 7: Lower Body B</button>
+            </div>
+
+            <div id="day_w2d4" class="workout-day-pane active">
+              <div class="card" style="margin-bottom: 24px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
         <div>
           <h3 style="color: #fff; font-size: 1.25rem;">Hafta 2 — Gün 4 (Upper Body A)</h3>
@@ -4402,8 +4526,10 @@ body {
     </div>
     
     </div>
-    
-    <div class="card" style="margin-bottom: 24px;">
+            </div>
+
+            <div id="day_w2d5" class="workout-day-pane">
+              <div class="card" style="margin-bottom: 24px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
         <div>
           <h3 style="color: #fff; font-size: 1.25rem;">Hafta 2 — Gün 5 (Lower Body + Aşil Rehab)</h3>
@@ -4861,8 +4987,10 @@ body {
     </div>
     
     </div>
-    
-    <div class="card" style="margin-bottom: 24px;">
+            </div>
+
+            <div id="day_w2d6" class="workout-day-pane">
+              <div class="card" style="margin-bottom: 24px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
         <div>
           <h3 style="color: #fff; font-size: 1.25rem;">Hafta 2 — Gün 6 (Upper Body B)</h3>
@@ -5384,8 +5512,10 @@ body {
     </div>
     
     </div>
-    
-    <div class="card" style="margin-bottom: 24px;">
+            </div>
+
+            <div id="day_w2d7" class="workout-day-pane">
+              <div class="card" style="margin-bottom: 24px;">
       <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px;">
         <div>
           <h3 style="color: #fff; font-size: 1.25rem;">Hafta 2 — Gün 7 (Lower Body B)</h3>
@@ -5843,7 +5973,7 @@ body {
     </div>
     
     </div>
-    
+            </div>
           </div>
 
           <!-- HAFTA 3 -->
@@ -7772,6 +7902,71 @@ body {
     </div>
   </div>
 
+  <!-- ============================================================
+       FINISH WORKOUT CONFIRMATION & REVIEW MODAL
+       ============================================================ -->
+  <div id="finishWorkoutModal" class="guide-modal-backdrop" onclick="if(event.target===this) QuickSetEngine.closeFinishModal()">
+    <div class="guide-modal-card" style="max-width: 500px;" role="dialog" aria-modal="true" aria-labelledby="finishModalTitle">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; margin-bottom: 16px;">
+        <h3 id="finishModalTitle" style="color: #10b981; font-size: 1.25rem; display: flex; align-items: center; gap: 8px; margin: 0;">
+          <span>✅</span> <span>Antrenmanı Tamamla & Kaydet</span>
+        </h3>
+        <button type="button" onclick="QuickSetEngine.closeFinishModal()" style="background: none; border: none; color: var(--text-muted); font-size: 1.3rem; cursor: pointer;">✕</button>
+      </div>
+
+      <div id="finishModalStats" style="background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: var(--radius-sm); padding: 12px 16px; margin-bottom: 16px;">
+        <div style="font-weight: 700; color: #fff; font-size: 1rem; margin-bottom: 4px;" id="finishModalDayName">Aktif Seans</div>
+        <div style="font-size: 0.88rem; color: #a7f3d0;" id="finishModalCounts">0 Hareket • 0 Set Tamamlandı</div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 18px;">
+        <div>
+          <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">⏱️ Seans Süresi (Dakika):</label>
+          <input type="number" id="finishDurationInput" min="10" max="180" value="55" class="form-input" style="width: 100%; padding: 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: #fff; font-size: 0.95rem;">
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">🎯 Algılanan Zorluk (RPE):</label>
+          <select id="finishRpeSelect" class="form-input" style="width: 100%; padding: 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: #fff; font-size: 0.95rem;">
+            <option value="5">RPE 5 (Çok Hafif / Isınma)</option>
+            <option value="6">RPE 6 (Hafif-Orta / Rahat)</option>
+            <option value="7">RPE 7 (Orta / Rehabilitasyon)</option>
+            <option value="8" selected>RPE 8 (Hedef Kuvvet / Cepte 2 Pay - Altın Kural)</option>
+            <option value="9">RPE 9 (Zor / Nadir)</option>
+          </select>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">⚠️ Seans Sonu Ağrı / Batma Durumu:</label>
+          <div style="display: flex; gap: 12px; font-size: 0.85rem; flex-wrap: wrap;">
+            <label style="display: flex; align-items: center; gap: 6px; color: #10b981; cursor: pointer;">
+              <input type="radio" name="finishPainLevel" value="0" checked> Sıfır Ağrı
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; color: #f59e0b; cursor: pointer;">
+              <input type="radio" name="finishPainLevel" value="2"> Hafif Sızı (1-3)
+            </label>
+            <label style="display: flex; align-items: center; gap: 6px; color: #ef4444; cursor: pointer;">
+              <input type="radio" name="finishPainLevel" value="5"> Belirgin Ağrı (≥4)
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">📝 Seans Notu (Opsiyonel):</label>
+          <input type="text" id="finishNotesInput" placeholder="Örn: Sol omuz gayet iyi, kilolar korundu..." class="form-input" style="width: 100%; padding: 8px 12px; background: var(--bg); border: 1px solid var(--border); border-radius: 6px; color: #fff; font-size: 0.85rem;">
+        </div>
+      </div>
+
+      <div style="display: flex; gap: 10px;">
+        <button type="button" class="btn-ctrl secondary" style="flex: 1;" onclick="QuickSetEngine.closeFinishModal()">Vazgeç</button>
+        <button type="button" class="btn-ctrl primary" style="flex: 2; background: linear-gradient(135deg, #059669 0%, #10b981 100%); border: none;" onclick="QuickSetEngine.saveFinishedWorkout()">
+          💾 Seansı Kesin Kaydet
+        </button>
+      </div>
+    </div>
+  </div>
+
+
   <script>
     window.EXERCISE_GUIDES_MAP = {"ex_w1d1_0": {"id": "ex_w1d1_0", "name": "Hafif Bisiklet", "code": "IS", "sets": "1 × 5 dk", "tempo": "Akıcı", "rpe": "3/10", "why": "Genel vücut ısısını artırır, aşil tendonunu kompresyona sokmadan synovial sıvıyı ısıtır.", "safety": "Pedala parmak ucuyla basmayın; ayak tabanı ortasıyla basarak aşili koruyun.", "notes": "Düşük direnç, 60-70 RPM. Pedal ayak ortasıyla basılır."}, "ex_w1d1_1": {"id": "ex_w1d1_1", "name": "Dinamik Stretching", "code": "IS", "sets": "1 × 3 dk", "tempo": "Kontrollü", "rpe": "—", "why": "Omuz ve kalça eklem kapsüllerini antrenmana hazırlar, sakatlık riskini düşürür.", "safety": "BOYUN ÇEVİRME KESİNLİKLE YASAKTIR. Boyun daima nötr kalmalıdır.", "notes": "Kol daireleri, hafif gövde rotasyonu, kalça ve ayak bileği daireleri."}, "ex_w1d1_2": {"id": "ex_w1d1_2", "name": "Chin Tuck (Çene İçe)", "code": "SV", "sets": "3 × 10", "tempo": "5 sn tutuş", "rpe": "—", "why": "Derin servikal fleksörleri (longus colli/capitis) uyararak servikal lordoz düzleşmesini rehabilite eder.", "safety": "Başı arkaya atmayın veya öne eğmeyin; yalnızca çeneyi geriye çekin. Ağrıda durun.", "notes": "Duvara sırt dayalı. Çift çene pozisyonu. Baş duvardan ayrılmaz."}, "ex_w1d1_3": {"id": "ex_w1d1_3", "name": "İzometrik Yan Baskı", "code": "SV", "sets": "2 × 8 her yön", "tempo": "5 sn tutuş", "rpe": "—", "why": "Boyun yan stabilizatörlerini fıtıklı diski sıkıştırmadan izometrik olarak güçlendirir.", "safety": "Sol tarafta fıtık olduğu için baskı %50'yi aşmamalıdır; batma olursa %30'a indirin.", "notes": "Sol %50 güç, sağ %70 güç. Baş hareket etmez, statik kasılma."}, "ex_w1d1_4": {"id": "ex_w1d1_4", "name": "Skapular Retraksiyon", "code": "SV", "sets": "3 × 12", "tempo": "3 sn tutuş", "rpe": "—", "why": "Rhomboid ve orta trap aktivasyonu ile sol kürek kemiğindeki kulunçları deaktive eder.", "safety": "Omuzları kulaklara doğru yukarı kaldırmayın; daima aşağı ve geriye bastırın.", "notes": "Ayakta, kollar yanda. Kürek kemiklerini arkada sık (kalem sıkıştırma)."}, "ex_w1d1_5": {"id": "ex_w1d1_5", "name": "Leg Press 45°", "code": "1", "sets": "3 × 12-15", "tempo": "2-1-2", "rpe": "5-6", "why": "Omurgaya hiçbir eksenel (aksiyel) dikey yük bindirmeden bacak kuvveti ve hormonel uyarım sağlar.", "safety": "Belinizin arkalıktan kalkmasına izin vermeyin (pelvik tilt = bel/boyun basısı).", "notes": "Bel platforma yapışık, dizler dışa doğru açılır. Ayaklar omuz genişliğinde."}, "ex_w1d1_6": {"id": "ex_w1d1_6", "name": "Chest Press Makine", "code": "2", "sets": "3 × 12-15", "tempo": "2-1-2", "rpe": "5-6", "why": "Serbest ağırlığa kıyasla sabit rotada güvenli pektoral hipertrofi ve omuz stabilitesi.", "safety": "Dirsekleri 90 dereceden fazla arkaya çekmeyin; omuz ön kapsülünü zorlamayın.", "notes": "Dirsekler 45° açıda, baş arkalıkta sabit. Göğüs kabarık."}, "ex_w1d1_7": {"id": "ex_w1d1_7", "name": "Seated Cable Row", "code": "3", "sets": "3 × 12-15", "tempo": "2-1-2", "rpe": "5-6", "why": "Sırt kaslarını kalınlaştırarak öne yuvarlanan omuzları (text neck) düzeltir.", "safety": "Gövdeyi geriye savurarak ivme kullanmayın; hareket tamamen skapuladan başlamalıdır.", "notes": "V-tutuş barı, kürek sıkma vurgusu. Gövde 90 derece dik."}, "ex_w1d1_8": {"id": "ex_w1d1_8", "name": "Lat Pulldown (Geniş)", "code": "4", "sets": "3 × 12-15", "tempo": "2-1-2", "rpe": "5-6", "why": "Latissimus dorsi kasını çalıştırarak omurgaya dekompresyon ve askı desteği verir.", "safety": "BARI ASLA ENSEYE ÇEKMEYİN (Behind-the-neck fıtık için en tehlikeli harekettir).", "notes": "Bar köprücük kemiğine önden çekilir. Hafif geriye eğim (10-15°)."}, "ex_w1d1_9": {"id": "ex_w1d1_9", "name": "DB Shoulder Press (Oturarak)", "code": "5", "sets": "2 × 12", "tempo": "2-1-2", "rpe": "5", "why": "Oturur pozisyonda bel korunarak omuz kuvvet dengesizliği kapatılır.", "safety": "Ayakta yapmayın. Ağırlığı kulak hizasından yukarı iterken boynu kasmayın.", "notes": "2-4 kg hafif dambıllar. SOL taraf İLK başlar, sol 13-14 tekrar yapılır."}, "ex_w1d1_10": {"id": "ex_w1d1_10", "name": "Cable Face Pull", "code": "6", "sets": "3 × 15", "tempo": "2-1-2", "rpe": "5", "why": "Rotator cuff dış rotatörleri ve arka omuzu güçlendirerek boyun ağrılarını hafifletir.", "safety": "Ağırlığı göğse değil alına doğru çekin; dirsekler bileklerden yukarıda kalmalıdır.", "notes": "Halat göz hizasına çekilir, dirsekler dışarı açılır. Tepe kasılma 1 sn."}, "ex_w1d1_11": {"id": "ex_w1d1_11", "name": "Çift Ayak Calf Raise (Düz)", "code": "AH", "sets": "3 × 15", "tempo": "3-1-3", "rpe": "4-5", "why": "Aşil tendonunun reaktif fazında kollajen liflerine kontrollü gerim vererek iyileşmeyi tetikler.", "safety": "Ağrı 3/10'u aşmamalıdır; topuğu zemin seviyesinin altına indirmeyin.", "notes": "Düz zemin, basamak YOK. 3 sn yukarı, 1 sn tepe, 3 sn kontrollü iniş."}, "ex_w1d1_12": {"id": "ex_w1d1_12", "name": "Hafif Yürüyüş + Soğuma", "code": "SO", "sets": "1 × 3 dk", "tempo": "Rahat", "rpe": "—", "why": "Kalp atımını normale düşürür ve laktat birikimini dağıtır.", "safety": "Boynunuzu sağa sola çekerek esnetmeye kalkışmayın.", "notes": "Göğüs ve hamstring hafif esnetme — boyun esnetme YOK."}, "ex_w1d2_0": {"id": "ex_w1d2_0", "name": "Isınma + Servikal Blok", "code": "IS+SV", "sets": "1 × 16 dk", "tempo": "Standart", "rpe": "—", "why": "Her seansta omurga stabilitesini garanti altına alan zorunlu koruma kalkanı.", "safety": "Boyun nötr; ağrı anında izometrik baskı şiddeti %30'a düşürülür.", "notes": "Bisiklet 5 dk + dinamik 3 dk + Chin tuck (3x10) + İzometrik (2x8) + Skapular (3x12)."}, "ex_w1d2_1": {"id": "ex_w1d2_1", "name": "Goblet Squat", "code": "1", "sets": "3 × 12", "tempo": "2-1-2", "rpe": "5-6", "why": "Aksiyel omurga yükü olmadan bacak ve gluteus hipertrofisi.", "safety": "Topuklar yerden kalkmamalı; aşil gerilimi hissedilirse ayak altına küçük plaka konabilir.", "notes": "4-6 kg DB göğüste sıkı tutulur. Gövde dik, dizler ayak ucunu izler."}, "ex_w1d2_2": {"id": "ex_w1d2_2", "name": "Incline Chest Press Makine", "code": "2", "sets": "3 × 12-15", "tempo": "2-1-2", "rpe": "5-6", "why": "Klavikular (üst) göğüs liflerini geliştirerek omuz kuşağını dengeler.", "safety": "Kolları iterken başı öne doğru uzatmayın (fıtığı basıya sokar).", "notes": "30-45° eğim. Baş arkalıkta sabit, omuzlar arkada kilitli."}, "ex_w1d2_3": {"id": "ex_w1d2_3", "name": "Single Arm Cable Row", "code": "3", "sets": "3 × 12 her taraf", "tempo": "2-1-2", "rpe": "5-6", "why": "Sol skapuladaki nöral inhibisyonu kırar ve iki taraf arasındaki kuvvet farkını eşitler.", "safety": "Gövdeyi aşırı döndürmeyin; hareket izole biçimde skapuladan yönlendirilmelidir.", "notes": "SOL taraf İLK başlar, sol 13-14 tekrar yapılır. Kürek kemiği tam sıkılır."}, "ex_w1d2_4": {"id": "ex_w1d2_4", "name": "Leg Curl Makine", "code": "4", "sets": "3 × 12-15", "tempo": "2-1-2", "rpe": "5-6", "why": "Hamstring kuvveti kuadriseps dominansını kırar ve diz eklemini korur.", "safety": "Ağırlığı kaldırırken kalçayı minderden kaldırmayın.", "notes": "Yüzüstü veya oturarak. Tepe kasılmada 2 sn tutuş."}, "ex_w1d2_5": {"id": "ex_w1d2_5", "name": "DB Lateral Raise", "code": "5", "sets": "2 × 15", "tempo": "2-1-2", "rpe": "4-5", "why": "Lateral deltoid izolasyonu ile omuz genişliğini artırır.", "safety": "Kolları omuz hizasından yukarı kaldırmayın; trapezius üstünü devreye sokmayın.", "notes": "1-3 kg çok hafif dambıllar. Dirsekler hafif bükük, omuz hizasına kadar."}, "ex_w1d2_6": {"id": "ex_w1d2_6", "name": "Cable Face Pull", "code": "6", "sets": "3 × 15", "tempo": "2-1-2", "rpe": "5", "why": "Sürekli oturma ve masa başı text neck postürünü düzeltir.", "safety": "Boynu öne uzatmayın, göğsü açık tutun.", "notes": "Her seansta skapular sağlık ve postür için tekrarlanır."}, "ex_w1d2_7": {"id": "ex_w1d2_7", "name": "Aşil Bloğu + Soğuma", "code": "AH+SO", "sets": "1 × 8 dk", "tempo": "3-1-3", "rpe": "4-5", "why": "Tendon elastikiyetini artırır ve gün sonu ağrısını önler.", "safety": "Topukları basamaktan aşağı sarkıtmayın.", "notes": "Çift ayak calf raise (3x15) + hafif hamstring ve göğüs esnetme."}, "ex_w1d3_0": {"id": "ex_w1d3_0", "name": "Gün 1 Programı Tekrarı (%5-10 Ağırlık Artışı)", "code": "GENEL", "sets": "Tam Program", "tempo": "2-1-2", "rpe": "5-6", "why": "Progresif yüklenme prensibi ile kas fibrillerine ilk haftada artan direnç adaptasyonu sağlanır.", "safety": "Form bozuluyorsa ağırlık artırılmaz; eski ağırlıkla temiz tekrar yapılır.", "notes": "Gün 1 hareket sırası ve setleri aynen uygulanır. Form bozulmadan ağırlıklar %5-10 artırılır."}, "ex_w1d4_0": {"id": "ex_w1d4_0", "name": "Isınma + Servikal Blok", "code": "IS+SV", "sets": "1 × 16 dk", "tempo": "Standart", "rpe": "—", "why": "Kan dolaşımını artırarak doku onarımını hızlandırır.", "safety": "Yorgunluk varsa dinlenme tercih edilmelidir.", "notes": "Standart bisiklet ve boyun stabilizasyon egzersizleri."}, "ex_w1d4_1": {"id": "ex_w1d4_1", "name": "Leg Press (Hafif)", "code": "1", "sets": "2 × 15-20", "tempo": "2-1-3", "rpe": "4", "why": "Bacak kaslarına kan pompalayarak toparlanmayı hızlandırır.", "safety": "Tükenişe gitmeyin; hareket pompası amaçlıdır.", "notes": "Gün 1 ağırlığının %70'i. Yüksek tekrar, düşük laktat."}, "ex_w1d4_2": {"id": "ex_w1d4_2", "name": "Chest Press (Hafif)", "code": "2", "sets": "2 × 15-20", "tempo": "2-1-3", "rpe": "4", "why": "Pektoral kaslarda mikrosirkülasyon.", "safety": "Eklem zorlaması sıfır olmalı.", "notes": "Gün 1 ağırlığının %70'i. Rahat nefes akışı."}, "ex_w1d4_3": {"id": "ex_w1d4_3", "name": "Seated Cable Row (Hafif)", "code": "3", "sets": "2 × 15-20", "tempo": "2-1-3", "rpe": "4", "why": "Skapular kanlanma ve gevşeme.", "safety": "Hızlı çekiş yok, kontrollü tempo.", "notes": "%70 ağırlık, kürek kemiği sıkma vurgusu."}, "ex_w1d4_4": {"id": "ex_w1d4_4", "name": "Lat Pulldown (Hafif)", "code": "4", "sets": "2 × 15-20", "tempo": "2-1-3", "rpe": "4", "why": "Omurga traksiyonu.", "safety": "Enseye çekme yasağı geçerlidir.", "notes": "%70 ağırlık. Geniş tutuş, öne çekiş."}, "ex_w1d4_5": {"id": "ex_w1d4_5", "name": "Foam Roller / Stretching", "code": "5", "sets": "1 × 10 dk", "tempo": "Yavaş", "rpe": "—", "why": "Miyofasiyal gerginlikleri çözer.", "safety": "BOYUN BÖLGESİNE FOAM ROLLER UYGULAMAYIN (Doğrudan disk basısı!).", "notes": "Torakal mobilite, hamstring, kalça fasyası açma."}, "ex_w1d4_6": {"id": "ex_w1d4_6", "name": "Face Pull (Hafif)", "code": "6", "sets": "2 × 20", "tempo": "2-1-2", "rpe": "3", "why": "Postüral dayanıklılık.", "safety": "Zorlama yok.", "notes": "Çok hafif direnç, arka omuz kanlanması."}, "ex_w1d4_7": {"id": "ex_w1d4_7", "name": "Aşil Protokolü", "code": "AH", "sets": "1 × 5 dk", "tempo": "3-1-3", "rpe": "3", "why": "Tendon dinlenmesini aktif tutar.", "safety": "Ağrı sıfır olmalıdır.", "notes": "Düz zemin calf raise."}, "ex_w2d4_0": {"id": "ex_w2d4_0", "name": "Servikal Blok", "code": "SV", "sets": "1 × 8 dk", "tempo": "5 sn tutuş", "rpe": "—", "why": "Üst gövde antrenmanı öncesi boyun omurlarını kilitler.", "safety": "Boyun nötr.", "notes": "Chin tuck, izometrik fleksiyon/ekstansiyon/lateral, skapular retraksiyon."}, "ex_w2d4_1": {"id": "ex_w2d4_1", "name": "Chest Press Makine", "code": "1", "sets": "3 × 10-12", "tempo": "2-1-2", "rpe": "6-7", "why": "Pektoral hipertrofi.", "safety": "Baş geride.", "notes": "Ağırlık artırıldı. Dirsekler 45 derece."}, "ex_w2d4_2": {"id": "ex_w2d4_2", "name": "Seated Cable Row", "code": "2", "sets": "3 × 10-12", "tempo": "2-1-2", "rpe": "6-7", "why": "Orta sırt gücü.", "safety": "Gövdeyi sallama.", "notes": "V-tutuş, kürek sıkma tepe noktada 1.5 sn."}, "ex_w2d4_3": {"id": "ex_w2d4_3", "name": "Lat Pulldown (Dar V-Bar)", "code": "3", "sets": "3 × 10-12", "tempo": "2-1-2", "rpe": "6-7", "why": "Latissimus dorsi alt lifleri ve biseps desteği.", "safety": "Gövdeyi arkaya aşırı yatırmayın.", "notes": "Dar nötr tutuş, alt göğse doğru çekiş."}, "ex_w2d4_4": {"id": "ex_w2d4_4", "name": "Single Arm DB Row", "code": "4", "sets": "3 × 10-12 her taraf", "tempo": "2-1-2", "rpe": "6", "why": "Sol skapular kulunçları çözmek ve kuvvet açığını kapatmak için altın standart.", "safety": "Sırt düz, boyun omurgayla aynı doğrultuda yere bakar.", "notes": "SOL İLK BAŞLAR. Sol 12-13 tekrar, sağ 10-11 tekrar."}, "ex_w2d4_5": {"id": "ex_w2d4_5", "name": "Cable Face Pull", "code": "5", "sets": "3 × 15", "tempo": "2-1-2", "rpe": "5", "why": "Dış rotatör kuvveti.", "safety": "Dirsekler yüksekte.", "notes": "Göz hizasına çekiş."}, "ex_w2d4_6": {"id": "ex_w2d4_6", "name": "DB External Rotation", "code": "6", "sets": "2 × 15 her taraf", "tempo": "2-1-2", "rpe": "4", "why": "Infraspinatus ve teres minor (rotator cuff) spesifik güçlendirme.", "safety": "Ağır kilo almayın, dirseği gövdeden ayırmayın.", "notes": "1-2 kg çok hafif dambıl, dirsek gövdeye yapışık yana açılış."}, "ex_w2d4_7": {"id": "ex_w2d4_7", "name": "Aşil Bloğu", "code": "AH", "sets": "1 × 5 dk", "tempo": "3-1-3", "rpe": "5", "why": "Günlük tendon yüklemesi.", "safety": "Ağrı eşiği kontrolü.", "notes": "Düz zemin calf raise."}, "ex_w2d5_0": {"id": "ex_w2d5_0", "name": "Servikal Blok", "code": "SV", "sets": "1 × 8 dk", "tempo": "Standart", "rpe": "—", "why": "Omurga güvenliği.", "safety": "Zorlama yok.", "notes": "Standart servikal stabilizasyon."}, "ex_w2d5_1": {"id": "ex_w2d5_1", "name": "Leg Press 45°", "code": "1", "sets": "4 × 10-12", "tempo": "2-1-2", "rpe": "6-7", "why": "Maksimal bacak kuvvet inşası.", "safety": "Dizleri tepe noktasında asla kilitlemeyin (hyperextension yok).", "notes": "Hacim artışı (4 set). Bel platforma kilitli."}, "ex_w2d5_2": {"id": "ex_w2d5_2", "name": "Leg Extension", "code": "2", "sets": "3 × 12-15", "tempo": "2-1-2", "rpe": "6", "why": "Diz kapağı (patellar) tendon ve kuadriseps adaptasyonu.", "safety": "Ağırlığı savurmayın, tepe noktada 1 sn sıkın.", "notes": "Kuadriseps izolasyonu."}, "ex_w2d5_3": {"id": "ex_w2d5_3", "name": "Leg Curl", "code": "3", "sets": "3 × 12", "tempo": "2-1-2", "rpe": "6", "why": "Arka bacak kuvvet dengesi.", "safety": "Bel çukurunu aşırı zorlamayın.", "notes": "Hamstring odaklı."}, "ex_w2d5_4": {"id": "ex_w2d5_4", "name": "Calf Raise Ayakta", "code": "4", "sets": "3 × 15", "tempo": "3-1-4", "rpe": "5-6", "why": "Tendon kalınlaşması ve mikroyırtık onarımı için eksantrik gerilim.", "safety": "Ani iniş tendon kopma riskidir; iniş kesinlikle 4 saniye sürmelidir.", "notes": "Gastrocnemius hedefli. 4 saniye çok yavaş iniş (Eksantrik vurgu!)."}, "ex_w2d5_5": {"id": "ex_w2d5_5", "name": "Seated Calf Raise", "code": "5", "sets": "3 × 15", "tempo": "3-1-4", "rpe": "5-6", "why": "Soleus kası aşil tendinitinde ana yük emicidir.", "safety": "Yavaş tempo.", "notes": "Soleus kası hedefli (dizler 90 derece bükük)."}, "ex_w2d5_6": {"id": "ex_w2d5_6", "name": "Eksantrik Heel Drop (Basamak)", "code": "6", "sets": "2 × 10", "tempo": "5 sn iniş", "rpe": "4-5", "why": "Alfredson protokolünün altın standardı; tendinopatiyi iyileştiren ana eksantrik egzersiz.", "safety": "Ağrı 3-4/10 kabul edilir; 5/10 ve üzeri olursa çift ayakla düz zemine dönün.", "notes": "Basamakta: İki ayakla parmak ucuna kalk, tek ayağa geç ve 5 saniyede topuğu aşağı indir."}, "ex_w2d6_0": {"id": "ex_w2d6_0", "name": "Servikal Blok", "code": "SV", "sets": "1 × 8 dk", "tempo": "Standart", "rpe": "—", "why": "Servikal koruma.", "safety": "Nötr baş.", "notes": "Standart boyun hazırlığı."}, "ex_w2d6_1": {"id": "ex_w2d6_1", "name": "Incline Chest Press", "code": "1", "sets": "3 × 10-12", "tempo": "2-1-2", "rpe": "6-7", "why": "Üst göğüs hipertrofisi.", "safety": "Bel boşluğunu abartmayın.", "notes": "30-45 derece eğim."}, "ex_w2d6_2": {"id": "ex_w2d6_2", "name": "Lat Pulldown (Geniş)", "code": "2", "sets": "3 × 10-12", "tempo": "2-1-2", "rpe": "6-7", "why": "Sırt V-şekli ve skapular depresyon.", "safety": "Enseye çekme yasaktır.", "notes": "Geniş tutuş, öne çekiş."}, "ex_w2d6_3": {"id": "ex_w2d6_3", "name": "Single Arm Cable Row", "code": "3", "sets": "3 × 10-12 her taraf", "tempo": "2-1-2", "rpe": "6", "why": "Tek taraflı kuvvet dengelemesi.", "safety": "Gövde rotasyonu yok.", "notes": "SOL İLK. Sol taraf 1-2 tekrar fazla."}, "ex_w2d6_4": {"id": "ex_w2d6_4", "name": "Pec Deck / Cable Crossover", "code": "4", "sets": "3 × 12-15", "tempo": "2-1-2", "rpe": "6", "why": "Pektoral iç lifler ve omuz adduksiyonu.", "safety": "Kolları arkaya aşırı açmayın.", "notes": "Hafif-orta kilo, göğüs sıkıştırma odaklı."}, "ex_w2d6_5": {"id": "ex_w2d6_5", "name": "DB Lateral Raise", "code": "5", "sets": "3 × 12-15", "tempo": "2-1-2", "rpe": "5", "why": "Omuz genişliği.", "safety": "Omuz hizasını geçmeyin.", "notes": "2-3 kg. Kontrollü iniş."}, "ex_w2d6_6": {"id": "ex_w2d6_6", "name": "Face Pull + Ext. Rotation", "code": "6", "sets": "3 × 15 + 2 × 15", "tempo": "2-1-2", "rpe": "5", "why": "Tam skapular rehabilitasyon kombinasyonu.", "safety": "Hafif direnç kullanın.", "notes": "Süper set veya peş peşe."}, "ex_w2d6_7": {"id": "ex_w2d6_7", "name": "Aşil Bloğu", "code": "AH", "sets": "1 × 5 dk", "tempo": "3-1-3", "rpe": "5", "why": "Tendon beslenmesi.", "safety": "Ağrı takibi.", "notes": "Calf raise."}, "ex_w2d7_0": {"id": "ex_w2d7_0", "name": "Servikal Blok", "code": "SV", "sets": "1 × 8 dk", "tempo": "Standart", "rpe": "—", "why": "Omurga koruma.", "safety": "Nötr baş.", "notes": "Standart servikal blok."}, "ex_w2d7_1": {"id": "ex_w2d7_1", "name": "Goblet Squat", "code": "1", "sets": "3 × 12", "tempo": "2-1-2", "rpe": "6-7", "why": "Bacak kuvveti.", "safety": "Dik gövde.", "notes": "6-8 kg dambıl."}, "ex_w2d7_2": {"id": "ex_w2d7_2", "name": "Leg Press (Dar Ayak)", "code": "2", "sets": "3 × 12-15", "tempo": "2-1-2", "rpe": "6", "why": "Vastus lateralis (dış bacak) odağı.", "safety": "Dizler içeri çökmemeli.", "notes": "Ayaklar platformun ortasında, dar duruş."}, "ex_w2d7_3": {"id": "ex_w2d7_3", "name": "Leg Extension", "code": "3", "sets": "3 × 12", "tempo": "2-1-2", "rpe": "6", "why": "Ön bacak izolasyonu.", "safety": "Savurma yok.", "notes": "Tepe kasılma 1.5 sn."}, "ex_w2d7_4": {"id": "ex_w2d7_4", "name": "Leg Curl", "code": "4", "sets": "3 × 12", "tempo": "2-1-2", "rpe": "6", "why": "Diz arkası koruması.", "safety": "Kontrollü iniş.", "notes": "Hamstring odağı."}, "ex_w2d7_5": {"id": "ex_w2d7_5", "name": "Calf Raise", "code": "5", "sets": "4 × 15", "tempo": "3-1-4", "rpe": "5-6", "why": "Tendon kuvveti.", "safety": "Ani iniş yok.", "notes": "4 saniye yavaş eksantrik iniş."}, "ex_w2d7_6": {"id": "ex_w2d7_6", "name": "Eksantrik Heel Drop", "code": "6", "sets": "3 × 10", "tempo": "5 sn iniş", "rpe": "4-5", "why": "Tendon yeniden modellenmesi.", "safety": "Boyun ve aşil güvenliği önceliklidir.", "notes": "Basamakta tek ayak kontrollü 5 sn iniş."}};
   </script>
@@ -7783,44 +7978,65 @@ body {
 // ============================================================
 const AudioEngine = {
   ctx: null,
+  unlocked: false,
   init() {
     if (!this.ctx) {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       if (AudioCtx) this.ctx = new AudioCtx();
     }
   },
+  unlock() {
+    if (this.unlocked) return;
+    this.init();
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume().then(() => {
+        this.unlocked = true;
+      }).catch(() => {});
+    } else if (this.ctx) {
+      this.unlocked = true;
+    }
+  },
   beep() {
     try {
       this.init();
       if (!this.ctx) return;
-      if (this.ctx.state === 'suspended') this.ctx.resume();
+      
+      const playTone = () => {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
 
-      const osc = this.ctx.createOscillator();
-      const gain = this.ctx.createGain();
-      osc.type = 'sine';
+        const now = this.ctx.currentTime;
+        osc.frequency.setValueAtTime(520, now);
+        osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
 
-      // 2-tone melodic chime: 440Hz -> 880Hz
-      const now = this.ctx.currentTime;
-      osc.frequency.setValueAtTime(520, now);
-      osc.frequency.exponentialRampToValueAtTime(880, now + 0.15);
+        gain.gain.setValueAtTime(0.3, now);
+        gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
 
-      gain.gain.setValueAtTime(0.3, now);
-      gain.gain.exponentialRampToValueAtTime(0.01, now + 0.45);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
 
-      osc.connect(gain);
-      gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.45);
 
-      osc.start(now);
-      osc.stop(now + 0.45);
+        if ('vibrate' in navigator) {
+          try { navigator.vibrate([200, 100, 200]); } catch(e) {}
+        }
+      };
 
-      if ('vibrate' in navigator) {
-        navigator.vibrate([200, 100, 200]);
+      if (this.ctx.state === 'suspended') {
+        this.ctx.resume().then(playTone).catch(() => {});
+      } else {
+        playTone();
       }
     } catch (e) {
       console.warn('Audio/Vibration playback suppressed:', e);
     }
   }
 };
+// Global unlock listener on first user interaction
+window.addEventListener('pointerdown', () => AudioEngine.unlock(), { once: true });
+window.addEventListener('keydown', () => AudioEngine.unlock(), { once: true });
 
 // ============================================================
 // TIMER ENGINE (Date.now() based - Zero Tab Sleep Drift)
@@ -8169,12 +8385,53 @@ const LogEngine = {
     this.saveLogs(logs);
   },
 
+  addEntryDirect(entry) {
+    const logs = this.getLogs();
+    logs.unshift(entry);
+    this.saveLogs(logs);
+    this.renderHistory();
+    SvgChartEngine.renderAll();
+    ClinicalRulesEngine.evaluateNewLog(entry, logs);
+    TodayEngine.init();
+  },
+
   exportJSON() {
     const logs = this.getLogs();
-    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(logs, null, 2));
+    
+    // Collect all achilles dates
+    const achillesHistory = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('achilles_')) {
+        achillesHistory[key] = localStorage.getItem(key);
+      }
+    }
+    
+    // Collect daily tasks
+    const dailyTasks = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && key.startsWith('tasks_')) {
+        dailyTasks[key] = localStorage.getItem(key);
+      }
+    }
+
+    const backupPayload = {
+      app: "Kas Zırhı",
+      version: "2.0",
+      export_date: new Date().toISOString(),
+      workouts: logs,
+      today_achilles: localStorage.getItem('kas_zirhi_today_achilles') || null,
+      achilles_history: achillesHistory,
+      pain_events: JSON.parse(localStorage.getItem('kas_zirhi_pain_events') || '[]'),
+      daily_tasks: dailyTasks,
+      checklist_states: JSON.parse(localStorage.getItem('kas_zirhi_checklist_states_v1') || '{}')
+    };
+
+    const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(backupPayload, null, 2));
     const a = document.createElement('a');
     a.href = dataStr;
-    a.download = `kas-zirhi-log-yedek-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `kas-zirhi-tam-yedek-${new Date().toISOString().split('T')[0]}.json`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -8187,11 +8444,54 @@ const LogEngine = {
     reader.onload = (e) => {
       try {
         const imported = JSON.parse(e.target.result);
+        
+        // Handle v1 Array of workouts
         if (Array.isArray(imported)) {
           this.saveLogs(imported);
+          this.renderHistory();
+          SvgChartEngine.renderAll();
+          TodayEngine.init();
           alert(`✅ ${imported.length} adet seans kaydı başarıyla yüklendi!`);
+          return;
+        }
+
+        // Handle v2 Unified Backup Object
+        if (imported && typeof imported === 'object') {
+          let count = 0;
+          if (Array.isArray(imported.workouts)) {
+            this.saveLogs(imported.workouts);
+            count = imported.workouts.length;
+          }
+          if (imported.today_achilles !== undefined && imported.today_achilles !== null) {
+            localStorage.setItem('kas_zirhi_today_achilles', imported.today_achilles.toString());
+          }
+          if (imported.achilles_history) {
+            for (const [k, v] of Object.entries(imported.achilles_history)) {
+              localStorage.setItem(k, v.toString());
+            }
+          }
+          if (Array.isArray(imported.pain_events)) {
+            localStorage.setItem('kas_zirhi_pain_events', JSON.stringify(imported.pain_events));
+          }
+          if (imported.daily_tasks) {
+            for (const [k, v] of Object.entries(imported.daily_tasks)) {
+              localStorage.setItem(k, typeof v === 'string' ? v : JSON.stringify(v));
+            }
+          }
+          if (imported.checklist_states) {
+            localStorage.setItem('kas_zirhi_checklist_states_v1', JSON.stringify(imported.checklist_states));
+          }
+
+          this.renderHistory();
+          SvgChartEngine.renderAll();
+          TodayEngine.init();
+          ChecklistEngine.applyStates();
+          alert(`✅ Tam Sistem Yedeği Başarıyla Yüklendi!
+• ${count} Seans Kaydı
+• Sabah Aşil ve Ağrı Geçmişi
+• Günlük Görevler & Kontrol Listeleri`);
         } else {
-          alert('❌ Geçersiz dosya formatı: Dizi bekleniyor.');
+          alert('❌ Geçersiz dosya formatı.');
         }
       } catch (err) {
         alert('❌ JSON okuma hatası: ' + err.message);
@@ -8618,6 +8918,19 @@ const ChecklistEngine = {
 // ============================================================
 // TAB & ACCORDION CONTROLLERS
 // ============================================================
+function switchWorkoutDay(weekTabId, dayPaneId, btn) {
+  const weekTab = document.getElementById(weekTabId);
+  if (!weekTab) return;
+  weekTab.querySelectorAll('.day-tab-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+
+  weekTab.querySelectorAll('.workout-day-pane').forEach(p => p.classList.remove('active'));
+  const targetPane = document.getElementById(dayPaneId);
+  if (targetPane) {
+    targetPane.classList.add('active');
+  }
+}
+
 function switchTab(containerId, targetId, btnEl) {
   const container = document.getElementById(containerId);
   if (!container) return;
@@ -8851,6 +9164,10 @@ const PwaEngine = {
 const QuickSetEngine = {
   workoutSessionData: {},
 
+  getDefaultWeight(name) {
+    return this.getLastOrInitialWeight(name);
+  },
+
   getLastOrInitialWeight(name) {
     if (typeof LogEngine !== 'undefined') {
       const logs = LogEngine.getLogs();
@@ -8886,6 +9203,72 @@ const QuickSetEngine = {
         disp.textContent = '— kg';
       }
     });
+
+    // Crash-proof restore active workout session if any
+    this.restoreActiveSession();
+  },
+
+  saveActiveSession() {
+    try {
+      const activeWeekBtn = document.querySelector('#workoutWeekTabNav .tab-btn.active');
+      const activeWeekText = activeWeekBtn ? activeWeekBtn.textContent.trim() : 'Hafta 1';
+      const activeDayBtn = document.querySelector('.day-tab-btn.active');
+      const activeDayText = activeDayBtn ? activeDayBtn.textContent.trim() : 'Gün 1';
+
+      const payload = {
+        date: new Date().toISOString().split('T')[0],
+        week: activeWeekText,
+        day: activeDayText,
+        data: this.workoutSessionData,
+        savedAt: Date.now()
+      };
+      localStorage.setItem('kas_zirhi_active_session', JSON.stringify(payload));
+    } catch(e) {
+      console.warn('Active session save failed:', e);
+    }
+  },
+
+  restoreActiveSession() {
+    try {
+      const raw = localStorage.getItem('kas_zirhi_active_session');
+      if (!raw) return;
+      const session = JSON.parse(raw);
+      const todayStr = new Date().toISOString().split('T')[0];
+      if (session && session.date === todayStr && session.data) {
+        this.workoutSessionData = session.data;
+        for (const [exName, exInfo] of Object.entries(this.workoutSessionData)) {
+          const card = document.querySelector(`.exercise-card[data-name="${exName}"]`);
+          if (card) {
+            if (exInfo.sets && exInfo.sets.length > 0) {
+              const buttons = card.querySelectorAll('.set-check-btn');
+              exInfo.sets.forEach(s => {
+                if (buttons[s.set_number - 1]) {
+                  buttons[s.set_number - 1].classList.add('completed');
+                }
+              });
+            }
+            if (exInfo.weight !== undefined && exInfo.weight !== null) {
+              const dispW = card.querySelector('.weight-display');
+              if (dispW) dispW.textContent = exInfo.weight === 0 ? 'Vücut Ağr.' : `${exInfo.weight} kg`;
+            }
+            if (exInfo.reps) {
+              const dispR = card.querySelector('.reps-display');
+              if (dispR) dispR.textContent = `${exInfo.reps} tkr`;
+            }
+          }
+        }
+        this.updateLiveIndicator();
+      }
+    } catch (e) {
+      console.warn('Active session restore failed:', e);
+    }
+  },
+
+  clearActiveSession() {
+    this.workoutSessionData = {};
+    localStorage.removeItem('kas_zirhi_active_session');
+    document.querySelectorAll('.set-check-btn.completed').forEach(b => b.classList.remove('completed'));
+    this.updateLiveIndicator();
   },
 
   stepWeight(name, delta, btn) {
@@ -8902,12 +9285,13 @@ const QuickSetEngine = {
       const disp = card.querySelector('.weight-display');
       if (disp) disp.textContent = current === 0 ? 'Vücut Ağr.' : `${current} kg`;
     }
+    this.saveActiveSession();
     this.updateLiveIndicator();
   },
 
   stepReps(name, delta, btn) {
     if (!this.workoutSessionData[name]) {
-      this.workoutSessionData[name] = { sets: [], weight: this.getDefaultWeight(name), reps: 12 };
+      this.workoutSessionData[name] = { sets: [], weight: this.getLastOrInitialWeight(name), reps: 12 };
     }
     let current = this.workoutSessionData[name].reps || 12;
     current = Math.max(1, current + delta);
@@ -8918,6 +9302,7 @@ const QuickSetEngine = {
       const disp = card.querySelector('.reps-display');
       if (disp) disp.textContent = `${current} tkr`;
     }
+    this.saveActiveSession();
     this.updateLiveIndicator();
   },
 
@@ -8969,10 +9354,11 @@ const QuickSetEngine = {
       this.workoutSessionData[exerciseName].sets = this.workoutSessionData[exerciseName].sets.filter(s => s.set_number !== setNum);
     }
 
+    this.saveActiveSession();
     this.updateLiveIndicator();
   },
 
-  updateLiveIndicator() {
+  getActiveSessionCounts() {
     let completedExCount = 0;
     let totalSets = 0;
     for (const [k, v] of Object.entries(this.workoutSessionData)) {
@@ -8981,6 +9367,12 @@ const QuickSetEngine = {
         totalSets += v.sets.length;
       }
     }
+    return { completedExCount, totalSets };
+  },
+
+  updateLiveIndicator() {
+    const { completedExCount, totalSets } = this.getActiveSessionCounts();
+    
     const indicator = document.getElementById('liveCompletedSetsBadge');
     if (indicator) {
       if (totalSets > 0) {
@@ -8990,6 +9382,100 @@ const QuickSetEngine = {
         indicator.style.display = 'none';
       }
     }
+
+    const finishSummary = document.getElementById('finishBarSummary');
+    if (finishSummary) {
+      finishSummary.textContent = totalSets > 0 
+        ? `⚡ Antrenman Durumu: ${completedExCount} Hareket • ${totalSets} Set Tamamlandı!`
+        : `⚡ Antrenman Durumu: Henüz set tamamlanmadı.`;
+    }
+  },
+
+  openFinishModal() {
+    const modal = document.getElementById('finishWorkoutModal');
+    if (!modal) return;
+
+    const { completedExCount, totalSets } = this.getActiveSessionCounts();
+    const activeDayBtn = document.querySelector('.day-tab-btn.active');
+    const dayName = activeDayBtn ? activeDayBtn.textContent.replace('📅', '').trim() : 'Günün Antrenmanı';
+
+    const dayNameEl = document.getElementById('finishModalDayName');
+    const countsEl = document.getElementById('finishModalCounts');
+
+    if (dayNameEl) dayNameEl.textContent = dayName;
+    if (countsEl) countsEl.textContent = `${completedExCount} Hareket • ${totalSets} Set Başarıyla Yapıldı`;
+
+    modal.classList.add('open');
+  },
+
+  closeFinishModal() {
+    const modal = document.getElementById('finishWorkoutModal');
+    if (modal) modal.classList.remove('open');
+  },
+
+  saveFinishedWorkout() {
+    const { completedExCount, totalSets } = this.getActiveSessionCounts();
+    if (totalSets === 0) {
+      if (!confirm('Henüz hiçbir set tamamlamadınız. Yine de boş seans olarak kaydetmek istiyor musunuz?')) {
+        return;
+      }
+    }
+
+    const activeWeekBtn = document.querySelector('#workoutWeekTabNav .tab-btn.active');
+    const phaseText = activeWeekBtn ? activeWeekBtn.textContent.trim().split(':')[0] : 'Hafta 1';
+    
+    const activeDayBtn = document.querySelector('.day-tab-btn.active');
+    const dayText = activeDayBtn ? activeDayBtn.textContent.replace('📅', '').trim() : 'Antrenman';
+
+    const duration = parseInt(document.getElementById('finishDurationInput')?.value) || 55;
+    const rpe = parseFloat(document.getElementById('finishRpeSelect')?.value) || 8;
+    
+    const painRadio = document.querySelector('input[name="finishPainLevel"]:checked');
+    const painVal = parseInt(painRadio ? painRadio.value : '0') || 0;
+
+    const notes = document.getElementById('finishNotesInput')?.value || '';
+
+    // Collect exercises
+    const exercises = [];
+    for (const [name, data] of Object.entries(this.workoutSessionData)) {
+      if (data.sets && data.sets.length > 0) {
+        exercises.push({ name, sets: [...data.sets] });
+      }
+    }
+
+    const entry = {
+      id: 'log_' + Date.now(),
+      date: new Date().toISOString().split('T')[0],
+      phase: phaseText,
+      day: dayText,
+      duration_min: duration,
+      exercises: exercises,
+      pain: {
+        neck: painVal >= 4 ? painVal : 0,
+        left_shoulder: painVal >= 4 ? painVal : 0,
+        left_arm: 0,
+        achilles: painVal >= 4 ? painVal : 0,
+        lower_back: 0
+      },
+      morning_achilles_pain: parseInt(localStorage.getItem('kas_zirhi_today_achilles') || '0'),
+      sleep_hours: 7.5,
+      sleep_quality: 4,
+      water_liters: 3.5,
+      mood: 4,
+      notes: notes ? `[RPE ${rpe}] ${notes}` : `[RPE ${rpe}] Tamamlandı`
+    };
+
+    LogEngine.addEntryDirect(entry);
+    this.clearActiveSession();
+    this.closeFinishModal();
+
+    if ('vibrate' in navigator) {
+      try { navigator.vibrate([100, 50, 100, 50, 200]); } catch(e) {}
+    }
+
+    // Switch to Today view to celebrate and show updated last session
+    NavigationEngine.switchTab('today');
+    alert(`🎉 Harika iş! ${dayText} seansınız (${totalSets} set) başarıyla kaydedildi ve kokpite işlendi.`);
   }
 };
 
@@ -9308,6 +9794,31 @@ const TodayEngine = {
     this.renderLastSession();
     this.renderAchillesScore();
     this.renderTasks();
+  },
+
+  startWorkoutSmart() {
+    NavigationEngine.switchTab('workout');
+    
+    // Check last session day to pick next day
+    const logs = LogEngine.getLogs();
+    if (logs.length > 0) {
+      const lastDay = (logs[0].day || '').toLowerCase();
+      if (lastDay.includes('gün 1')) {
+        // Activate Gün 2
+        const btn = document.querySelector('#week1DayNav .day-tab-btn:nth-child(2)');
+        if (btn) switchWorkoutDay('tabWeek1', 'day_w1d2', btn);
+      } else if (lastDay.includes('gün 2')) {
+        // Activate Gün 3
+        const btn = document.querySelector('#week1DayNav .day-tab-btn:nth-child(3)');
+        if (btn) switchWorkoutDay('tabWeek1', 'day_w1d3', btn);
+      } else if (lastDay.includes('gün 3')) {
+        // Switch to Week 2 Gün 4
+        const w2Btn = document.querySelectorAll('#workoutWeekTabNav .tab-btn')[1];
+        if (w2Btn) switchTab('workoutTabContainer', 'tabWeek2', w2Btn);
+        const btn = document.querySelector('#week2DayNav .day-tab-btn:nth-child(1)');
+        if (btn) switchWorkoutDay('tabWeek2', 'day_w2d4', btn);
+      }
+    }
   },
 
   renderHeader() {

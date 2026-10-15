@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kas-zirhi-v1.2';
+const CACHE_NAME = 'kas-zirhi-v1.3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -9,15 +9,24 @@ const ASSETS_TO_CACHE = [
   './exercises/bike.gif',
   './exercises/calf_raise.gif',
   './exercises/chest_press.gif',
+  './exercises/chin_tuck.gif',
+  './exercises/dynamic_warmup.gif',
+  './exercises/external_rotation.gif',
+  './exercises/face_pull.gif',
   './exercises/goblet_squat.gif',
   './exercises/incline_chest_press.gif',
+  './exercises/isometric_neck.gif',
   './exercises/lat_pulldown.gif',
   './exercises/lateral_raise.gif',
   './exercises/leg_curl.gif',
+  './exercises/leg_extension.gif',
   './exercises/leg_press.gif',
+  './exercises/scapular_retraction.gif',
+  './exercises/seated_calf.gif',
   './exercises/seated_row.gif',
   './exercises/shoulder_press.gif',
-  './exercises/single_arm_row.gif'
+  './exercises/single_arm_row.gif',
+  './exercises/standing_calf.gif'
 ];
 
 self.addEventListener('install', (event) => {
