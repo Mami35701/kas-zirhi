@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kas-zirhi-v1.3';
+const CACHE_NAME = 'kas-zirhi-v1.4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

@@ -724,20 +724,34 @@ tr:hover td {
 /* ============================================================
    TIMER MODAL & FLOATING MINI-TIMER
    ============================================================ */
-.timer-modal-backdrop {
+.timer-modal-backdrop,
+.guide-modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.82);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  z-index: 2000;
+  z-index: 10005;
   display: none;
   align-items: center;
   justify-content: center;
   padding: 16px;
 }
-.timer-modal-backdrop.open {
+.timer-modal-backdrop.open,
+.guide-modal-backdrop.open {
   display: flex;
+}
+.guide-modal-card {
+  background: #111827;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.75);
+  position: relative;
 }
 .timer-modal {
   background: #111827;
@@ -2142,9 +2156,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Dinamik Stretching')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Dinamik Stretching')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -2206,9 +2217,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Chin Tuck (Çene İçe)')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Chin Tuck (Çene İçe)')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -2270,9 +2278,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('İzometrik Yan Baskı')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('İzometrik Yan Baskı')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -2334,9 +2339,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Skapular Retraksiyon')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Skapular Retraksiyon')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -2846,9 +2848,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Hafif Yürüyüş + Soğuma')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Hafif Yürüyüş + Soğuma')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -2923,9 +2922,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Isınma + Servikal Blok')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Isınma + Servikal Blok')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -3371,9 +3367,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Aşil Bloğu + Soğuma')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Aşil Bloğu + Soğuma')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -3448,9 +3441,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Gün 1 Programı Tekrarı (%5-10 Ağırlık Artışı)')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Gün 1 Programı Tekrarı (%5-10 Ağırlık Artışı)')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -3523,9 +3513,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Isınma + Servikal Blok')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Isınma + Servikal Blok')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -3843,9 +3830,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Foam Roller / Stretching')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Foam Roller / Stretching')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -3971,9 +3955,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Aşil Protokolü')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Aşil Protokolü')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -4060,9 +4041,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Servikal Blok')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Servikal Blok')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -4508,9 +4486,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Aşil Bloğu')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Aşil Bloğu')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -4585,9 +4560,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Servikal Blok')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Servikal Blok')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -4969,9 +4941,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Eksantrik Heel Drop (Basamak)')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Eksantrik Heel Drop (Basamak)')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -5046,9 +5015,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Servikal Blok')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Servikal Blok')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -5494,9 +5460,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Aşil Bloğu')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Aşil Bloğu')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -5571,9 +5534,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Servikal Blok')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Servikal Blok')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -5955,9 +5915,6 @@ body {
 
       <!-- SALON MODU AKSİYONLARI (MAKİNE DOLUYSA & AĞRI BİLDİR) -->
       <div class="gym-actions-bar">
-        <button type="button" class="btn-gym-action alt" onclick="GymModeEngine.openAlternativeModal('Eksantrik Heel Drop')">
-          <span>🔄</span> <span>Makine Doluysa Alternatif</span>
-        </button>
         <button type="button" class="btn-gym-action pain" onclick="GymModeEngine.openPainModal('Eksantrik Heel Drop')">
           <span>⚠️</span> <span>Ağrı / Semptom Bildir</span>
         </button>
@@ -7689,12 +7646,24 @@ body {
         <span id="altModalReason" style="display: block; margin-top: 4px; font-size: 0.88rem; color: var(--text);"></span>
       </div>
 
-      <div class="safety-box" style="margin-bottom: 16px;">
-        <strong>✅ Doğru Kurulum:</strong>
+      <div class="safety-box" style="margin-bottom: 12px;">
+        <strong>✅ Doğru Kurulum & Form:</strong>
         <span id="altModalSetup" style="display: block; margin-top: 4px; font-size: 0.88rem; color: #f3f4f6;"></span>
       </div>
 
-      <button class="btn-ctrl primary" style="width: 100%;" onclick="GymModeEngine.closeAlternativeModal()">Anladım, Hareketi Uygulayacağım</button>
+      <div id="altModalWeightBox" style="background: rgba(245, 158, 11, 0.12); border: 1px solid rgba(245, 158, 11, 0.35); padding: 12px; border-radius: var(--radius-sm); margin-bottom: 16px;">
+        <strong style="color: #fbbf24; font-size: 0.85rem; display: block;">⚖️ Önerilen Ağırlık / Direnç Rehberi:</strong>
+        <span id="altModalWeight" style="display: block; margin-top: 4px; font-size: 0.85rem; color: #fef3c7;"></span>
+      </div>
+
+      <div style="display: flex; gap: 10px; margin-top: 14px;">
+        <button type="button" class="btn-ctrl primary" style="flex: 2; padding: 12px 14px; font-weight: 700; font-size: 0.9rem;" onclick="GymModeEngine.applyAlternativeToCard()">
+          🔄 Bu Alternatifi Seç & Karta Uygula
+        </button>
+        <button type="button" class="btn-ctrl secondary" style="flex: 1; padding: 12px 14px; font-size: 0.85rem;" onclick="GymModeEngine.closeAlternativeModal()">
+          Vazgeç
+        </button>
+      </div>
     </div>
   </div>
 
@@ -9173,7 +9142,7 @@ const QuickSetEngine = {
       const logs = LogEngine.getLogs();
       for (const log of logs) {
         if (log.exercises) {
-          const found = log.exercises.find(e => e.name && e.name.toLowerCase().trim() === name.toLowerCase().trim());
+          const found = log.exercises.find(e => e.name && e.name.toLowerCase().trim() === name.toLowerCase().trim() && !e.isAlternative);
           if (found && found.sets && found.sets.length > 0) {
             const w = found.sets[0].weight_kg;
             if (w !== undefined && w !== null) return w;
@@ -9246,6 +9215,21 @@ const QuickSetEngine = {
                   buttons[s.set_number - 1].classList.add('completed');
                 }
               });
+            }
+            if (exInfo.isAlternative && exInfo.altName) {
+              card.setAttribute('data-active-alt', exInfo.altName);
+              let badge = card.querySelector('.alt-active-pill');
+              if (!badge) {
+                badge = document.createElement('span');
+                badge.className = 'alt-active-pill';
+                badge.style.cssText = 'display: inline-flex; align-items: center; gap: 4px; background: rgba(6, 182, 212, 0.2); border: 1px solid #06b6d4; color: #22d3ee; padding: 2px 8px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; margin-left: 6px; vertical-align: middle;';
+                const nameEl = card.querySelector('.ex-name');
+                if (nameEl && nameEl.parentNode) {
+                  nameEl.parentNode.insertBefore(badge, nameEl.nextSibling);
+                }
+              }
+              badge.innerHTML = `🔄 Muadil: ${exInfo.altName} <button type="button" class="btn-revert-alt" onclick="event.stopPropagation(); GymModeEngine.revertAlternative('${exName}')" style="background: none; border: none; color: #f87171; cursor: pointer; padding: 0 4px; font-weight: 800; font-size: 0.9rem;" title="Orijinal makineye geri dön" aria-label="Orijinal makineye dön">✕</button>`;
+              badge.style.display = 'inline-flex';
             }
             if (exInfo.weight !== undefined && exInfo.weight !== null) {
               const dispW = card.querySelector('.weight-display');
@@ -9439,7 +9423,12 @@ const QuickSetEngine = {
     const exercises = [];
     for (const [name, data] of Object.entries(this.workoutSessionData)) {
       if (data.sets && data.sets.length > 0) {
-        exercises.push({ name, sets: [...data.sets] });
+        exercises.push({ 
+          name, 
+          isAlternative: !!data.isAlternative,
+          altName: data.altName || null,
+          sets: [...data.sets] 
+        });
       }
     }
 
@@ -9656,53 +9645,183 @@ const ExerciseGuideEngine = {
 const EXERCISE_ALTERNATIVES = {
   "Leg Press 45°": {
     altName: "Goblet Squat (Dumbbell)",
-    reason: "Omurgaya dikey aksiyel yük bindirmez, aynı quadriceps ve gluteus uyarımını serbest ağırlıkla sağlar.",
-    setup: "Dumbbell'ı göğüs hizasında iki elinle dikey tut. Ayaklar omuz genişliğinde, kalça geriye çöküş."
+    reason: "Omurgaya dikey aksiyel kompresyon bindirmez; dambıl göğüste dikey tutularak kuadriseps ve gluteus güvenle uyarılır.",
+    setup: "Dambılı göğüs hizasında iki elinle dikey tut. Ayaklar omuz genişliğinde, kalçayı geriye doğru çökerek 90° kontrollü iniş yap.",
+    weightAdvice: "Leg Press kilonuzun yaklaşık %20-25'i kadar tek dambıl seçin (Örn: 80 kg Leg Press ➔ 16-20 kg Goblet Squat)."
+  },
+  "Leg Press (Dar Ayak)": {
+    altName: "Smith Machine Squat (Ayaklar 30 cm İleride)",
+    reason: "Ayakları ileri koymak patellar tendon ve bel stresini sıfırlar; dikey omurga açısıyla dış kuadrisepsi izole eder.",
+    setup: "Ayak tabanları omuzdan dar, barın 30 cm ilerisinde. Sırt dik, kalça arkaya çöküş.",
+    weightAdvice: "Boş Smith barı veya bar + 10-20 kg (hafif kontrollü kilo)."
+  },
+  "Leg Press (Hafif)": {
+    altName: "Vücut Ağırlığıyla Box Squat (Kutuya Oturuş)",
+    reason: "Düşük şiddetli toparlanma gününde eklem açısını kontrol ederek aşil ve dizi sıfır riskle mobilize eder.",
+    setup: "Arkana bir sehpa al. Kalçan sehpaya hafifçe dokununca beklemeden topuklardan güç alarak kalk.",
+    weightAdvice: "Vücut ağırlığı veya maksimum 8-10 kg dambıl."
   },
   "Goblet Squat": {
-    altName: "Bulgarian Split Squat (Vücut Ağırlığı)",
-    reason: "Tek bacak stabilizasyonunu artırır, omurgayı %100 dekomprese tutar.",
-    setup: "Arka ayak sehpada, öndeki bacakla 90° kontrollü iniş."
+    altName: "Smith Machine Squat (Ayaklar İleride) veya Bulgarian Split Squat",
+    reason: "Dambıl standı meşgulse Smith Machine barı ile sırtı tamamen dik tutarak veya sehpada tek bacakla kuadriseps uyarılır.",
+    setup: "Ayaklar barın 30 cm önünde, sırt dik. Kontrollü 90° iniş.",
+    weightAdvice: "Smith boş bar veya vücut ağırlığıyla tek bacak."
+  },
+  "Leg Extension": {
+    altName: "Direnç Lastikli Terminal Knee Extension (TKE)",
+    reason: "Patellofemoral eklem stresini sıfırlar, VMO (iç ön bacak) kasını izole ederek diz kapağını stabilize eder.",
+    setup: "Direnç lastiğini direğe bağla, diz kapağının arkasına tak. Bacağı geriye doğru tam kilitle ve 2 sn sık.",
+    weightAdvice: "Orta veya sert direnç lastiği ile 15-20 kontrollü tekrar."
+  },
+  "Leg Curl Makine": {
+    altName: "Sehpada Dumbbell Hamstring Curl veya Swiss Ball Leg Curl",
+    reason: "Pelvis ve beli bükmeden izole diz fleksör (hamstring) kuvveti sağlar; omurga tamamen dekomprese kalır.",
+    setup: "Düz sehpaya yüzüstü yat. Ayaklarının arasına dikey dambıl alıp kontrollüce kalçana doğru bük.",
+    weightAdvice: "6 - 12 kg dambıl ile başlayın."
+  },
+  "Leg Curl": {
+    altName: "Sehpada Dumbbell Hamstring Curl veya Yerde Tek Bacak Glute Bridge",
+    reason: "Diz arkası kirişleri ve gluteus kaslarını makinesiz izometrik/konsantrik olarak uyarır.",
+    setup: "Düz sehpaya yüzüstü uzanıp ayak arasına dambıl al veya yerde tek topuk üstünde kalça kaldır.",
+    weightAdvice: "6 - 12 kg dambıl veya vücut ağırlığı."
   },
   "Chest Press Makine": {
     altName: "Dumbbell Floor Press (Yerde İtiş)",
-    reason: "Dirseklerin yerin altına inmesini engelleyerek ön omuz kapsülünü korur, fıtıkta güvenlidir.",
-    setup: "Yere sırtüstü uzan, dizler bükük. Dirsekler yere hafifçe dokununca yukarı it."
+    reason: "Dirseklerin yerin altına inmesini engelleyerek ön omuz kapsülünü ve boyun disklerini (C5-7) %100 korur.",
+    setup: "Mat üstüne sırtüstü uzan, dizler bükük. Dirsekler yere hafifçe dokununca dambılları yukarı it.",
+    weightAdvice: "Makine ağırlığının yaklaşık %60'ı (iki dambıl toplamı). Örn: 40 kg makine ➔ 2 × 12 kg dambıl."
+  },
+  "Chest Press (Hafif)": {
+    altName: "Dumbbell Floor Press (Hafif Kilo)",
+    reason: "Toparlanma gününde ön omuz kapsülünü germeden göğüs kasına kan akışı sağlar.",
+    setup: "Mat üstünde kontrollü 2-1-2 tempo ile itiş.",
+    weightAdvice: "Hafif dambıllar (2 × 8-10 kg)."
   },
   "Incline Chest Press Makine": {
-    altName: "Hafif Eğimli Sehpa Dumbbell Press (30°)",
-    reason: "Yüksek açı boyna baskı yapar, 30° hafif eğim üst göğsü uyarırken servikal lordozu korur.",
-    setup: "Sehpa 30 derecede. Dirsekler gövdeye 45 derece açıda kontrollü itiş."
+    altName: "30° Eğimli Sehpa Dumbbell Press",
+    reason: "Yüksek açı boyna baskı yapar; 30° hafif eğim üst göğsü uyarırken servikal lordozu korur.",
+    setup: "Sehpayı 2. kademeye (30°) ayarla. Dirsekler gövdeye 45° açıda kontrollü itiş yap.",
+    weightAdvice: "Düz bench kilonuzun %70-80'i (Örn: 2 × 12-14 kg)."
+  },
+  "Incline Chest Press": {
+    altName: "30° Eğimli Sehpa Dumbbell Press",
+    reason: "Yüksek açı boyna baskı yapar; 30° hafif eğim üst göğsü uyarırken servikal lordozu korur.",
+    setup: "Sehpayı 2. kademeye (30°) ayarla. Dirsekler gövdeye 45° açıda kontrollü itiş yap.",
+    weightAdvice: "Düz bench kilonuzun %70-80'i (Örn: 2 × 12-14 kg)."
+  },
+  "Pec Deck / Cable Crossover": {
+    altName: "Düz Sehpada Dumbbell Flye (Dirsekler 30° Bükük)",
+    reason: "Göğüs izolasyonu sağlar; dirsekler hafif kırık tutularak omuz eklemi ve boyun sinirleri korunur.",
+    setup: "Düz sehpaya uzan, avuçlar birbirine baksın. Dirsek açısını değiştirmeden kucaklaşır gibi yana aç.",
+    weightAdvice: "Hafif ağırlık (2 × 6-8 kg), 12-15 tekrar kontrollü tempo."
   },
   "Seated Cable Row": {
     altName: "Single Arm Dumbbell Row (Sehpaya Destekli)",
-    reason: "Omurgayı tamamen nötr tutar, sol/sağ asimetriyi bağımsız düzeltir.",
-    setup: "Bir el ve bir diz sehpada, sırt yere paralel düz. Dumbbell'ı kalçaya doğru çek."
+    reason: "Sehpa desteği omurgayı tamamen nötrler; sol kol ve kürek kemiği asimetrisini bağımsız düzeltir.",
+    setup: "Bir el ve diz sehpada, sırt düz. Dambılı kalça cebine doğru çek, kürek kemiğini arkada sıkıştır.",
+    weightAdvice: "Kablo ağırlığına yakın tek dambıl (Örn: 14 - 18 kg)."
+  },
+  "Seated Cable Row (Hafif)": {
+    altName: "Single Arm Dumbbell Row (Hafif / Destekli)",
+    reason: "Düşük yükle kürek kemiğini mobilize eder, omurga rotasyonunu sıfırlar.",
+    setup: "Sehpaya destekli tek kol çekiş, tepe noktada 2 sn sıkıştırma.",
+    weightAdvice: "Hafif dambıl (10-12 kg)."
   },
   "Single Arm Cable Row": {
-    altName: "Dumbbell Row (Sehpa Destekli)",
-    reason: "Kablo istasyonu meşgulse aynı tek taraflı lat ve skapular uyarımı sağlar.",
-    setup: "Sol taraf öncelikli başla, kürek kemiğini arkada sıkıştır."
+    altName: "Single Arm Dumbbell Row (Sehpa Destekli)",
+    reason: "Kablo istasyonu doluyken aynı tek taraflı lat ve skapular aktivasyonu dambılla sağlar.",
+    setup: "Sol taraf öncelikli başla. Dambılı kalçaya doğru çekerken gövdeyi döndürme.",
+    weightAdvice: "12 - 18 kg dambıl."
   },
-  "Lat Pulldown": {
-    altName: "Direnç Lastiği ile Yüksek Çekiş / Cable Straight-Arm Pullover",
-    reason: "Enseye çekme riski olmadan latissimus dorsi genişliğini hedefler.",
-    setup: "Gövdeyi 15 derece geriye yasla, barı/lastiği köprücük kemiğine çek."
+  "Single Arm DB Row": {
+    altName: "Göğüs Destekli Eğimli Sehpa Dumbbell Row (Chest-Supported)",
+    reason: "Düz sehpalar meşgulse 30-45° eğimli sehpaya göğsü yaslayarak beli %100 devre dışı bırakır.",
+    setup: "Sehpaya göğsünü daya, iki dambılı aynı anda kalçaya doğru çek.",
+    weightAdvice: "2 × 10-14 kg dambıl."
   },
-  "DB Shoulder Press": {
-    altName: "Landmine Press (Açılı İtiş) veya Oturarak DB Arnold Press (Hafif)",
-    reason: "Baş üstü dikey itiş boyun fıtığında risklidir; açılı itiş omurga basısını sıfırlar.",
-    setup: "Barı bir köşeye sabitleyip 45 derece açıyla yukarı itiş yap."
+  "Lat Pulldown (Geniş)": {
+    altName: "Direnç Lastiği ile Yüksek Çekiş veya Cable Straight-Arm Pullover",
+    reason: "Enseye çekiş riski olmadan Latissimus Dorsi genişliğini hedefler; boyun disklerine sıfır bası.",
+    setup: "Diz çökerek yüksek direnç lastiğini veya kablo çubuğunu kollar gergin köprücük kemiğine çek.",
+    weightAdvice: "Sert direnç lastiği veya kabloda 25-35 kg."
   },
-  "Hamstring Leg Curl": {
-    altName: "Yerde Tek Bacak Glute Bridge & Hamstring Hold",
-    reason: "Diz arkası kirişleri ve gluteus kaslarını makinesiz izometrik olarak uyarır.",
-    setup: "Sırtüstü yat, tek topuk yerde, kalçayı yukarı kaldır ve tepe noktada 5 sn sık."
+  "Lat Pulldown (Dar V-Bar)": {
+    altName: "Direnç Lastiği Nötr Tutuş Yüksek Çekiş veya Dumbbell Pullover",
+    reason: "Nötr tutuş (avuçlar içe) omuz kapsülünü korur, alt lat liflerini aktive eder.",
+    setup: "Diz çökerek lastiği veya sehpada tek dambılı baş arkasından göğse doğru çek.",
+    weightAdvice: "Sert direnç lastiği veya 14-18 kg tek dambıl."
   },
-  "Standing Calf Raise": {
-    altName: "Düz Zeminde Vücut Ağırlığıyla Tek Bacak Tepe Tutuşu",
-    reason: "Basamak doluysa düz zeminde topuk aşağı düşürülmeden (dorsifleksiyonsuz) izometrik tutuş.",
-    setup: "Düz zeminde duvara hafifçe dokunarak parmak ucuna kalk, 30-45 sn bekle."
+  "Lat Pulldown (Hafif)": {
+    altName: "Direnç Lastiği ile Yüksek Çekiş (Hafif Tempo)",
+    reason: "Toparlanma gününde eklemleri zorlamadan kan akışını artırır.",
+    setup: "Hafif/orta lastikle kontrollü 2-1-2 tempo.",
+    weightAdvice: "Orta direnç lastiği."
+  },
+  "Cable Face Pull": {
+    altName: "Sehpada Yüzüstü Dumbbell Batwing Row / Band Pull-Apart",
+    reason: "Kablo istasyonu meşgulse sol kürek kemiği stabilitesini ve arka omuzu aynı açıyla uyarır.",
+    setup: "30° eğimli sehpaya yüzüstü yat. Dambılları göğüs hizasında yukarı çekip kürek kemiklerini 2 sn sık.",
+    weightAdvice: "Hafif ağırlık (2 × 4-7 kg dambıl) veya orta direnç lastiği."
+  },
+  "Face Pull (Hafif)": {
+    altName: "Ayakta Direnç Lastiği ile Band Pull-Apart",
+    reason: "Kablo beklemeden direnç lastiği ile skapular retraksiyon ve arka omuz aktivasyonu sağlar.",
+    setup: "Lastiği iki elle göğüs hizasında tut, kolları yana doğru açarak lastiği göğsüne değdir.",
+    weightAdvice: "Hafif direnç lastiği, 15-20 tekrar."
+  },
+  "Face Pull + Ext. Rotation": {
+    altName: "Direnç Lastiği ile Y-Raise & Dış Rotasyon",
+    reason: "Kablo istasyonu meşgulse rotator cuff ve alt trapezius kaslarını serbest lastikle uyarır.",
+    setup: "Lastiği göğüs hizasında çekip elleri yukarı 'W' ve 'Y' pozisyonuna döndür.",
+    weightAdvice: "Hafif direnç lastiği."
+  },
+  "DB Shoulder Press (Oturarak)": {
+    altName: "Landmine Press (Açılı İtiş) veya 75° Oturarak DB Arnold Press (Hafif)",
+    reason: "Baş üstü tam dikey itiş boyun fıtığında omurgayı sıkıştırır; 45° açılı itiş omurga basısını sıfırlar.",
+    setup: "Barı köşeye sabitleyip tek elle 45 derece açıyla yukarı it veya dik sehpada dambılla kontrollü dönerek it.",
+    weightAdvice: "10-15 kg plaka (Landmine) veya 2 × 8-10 kg dambıl."
+  },
+  "DB Lateral Raise": {
+    altName: "Tek Kol Kablo Yana Açış veya Ayakta Direnç Lastiği Lateral Raise",
+    reason: "Dambıl standı kalabalıksa kablo veya lastik lateral deltoidi sürekli gerilim altında tutar.",
+    setup: "Kabloyu en alta al, gövdenin arkasından tek kolla omuz hizasına kadar yana aç.",
+    weightAdvice: "Kabloda 2.5 - 5 kg veya hafif direnç lastiği."
+  },
+  "DB External Rotation": {
+    altName: "Direnç Lastiği ile Ayakta Dış Rotasyon (Towel Roll Destekli)",
+    reason: "Rotator cuff kaslarını (infraspinatus) serbest dambıla gerek kalmadan izole eder.",
+    setup: "Direnç lastiğini direğe bağla. Dirsek gövdeye 90° yapışık, kolu dışa doğru çevir.",
+    weightAdvice: "Hafif direnç lastiği, 15 tekrar."
+  },
+  "Calf Raise Ayakta": {
+    altName: "Smith Machine Ayakta Calf Raise veya Düz Zeminde Tek Bacak DB Calf",
+    reason: "Basamak meşgulse düz zeminde aşili aşırı gerdirmeden (dorsifleksiyonsuz) gastrocnemius uyarır.",
+    setup: "Düz zeminde tek el duvara dayalı, tek bacak parmak ucuna kalk, tepe noktada 2 sn bekle.",
+    weightAdvice: "Elde 8-14 kg dambıl veya Smith Machine boş bar."
+  },
+  "Calf Raise": {
+    altName: "Smith Machine Ayakta Calf Raise veya Düz Zeminde Tek Bacak DB Calf",
+    reason: "Basamak meşgulse düz zeminde aşili aşırı gerdirmeden (dorsifleksiyonsuz) gastrocnemius uyarır.",
+    setup: "Düz zeminde tek el duvara dayalı, tek bacak parmak ucuna kalk, tepe noktada 2 sn bekle.",
+    weightAdvice: "Elde 8-14 kg dambıl veya Smith Machine boş bar."
+  },
+  "Çift Ayak Calf Raise (Düz)": {
+    altName: "Smith Machine Calf Raise veya Tek Bacak Vücut Ağırlığı Calf",
+    reason: "Düz zeminde aşile sıfır aşırı gerim vererek güvenli baldır uyarımı.",
+    setup: "Düz zeminde topukları parmak ucuna kaldırıp 2 sn tepe sıkma.",
+    weightAdvice: "Vücut ağırlığı veya elde 10 kg dambıl."
+  },
+  "Seated Calf Raise": {
+    altName: "Düz Sehpada Oturarak Diz Üstüne Dumbbell Koyarak Calf Raise",
+    reason: "Soleus kasını çalıştırmak için dizin 90° bükülü olması şarttır; özel makineye gerek kalmadan tam muadildir.",
+    setup: "Sehpa ucuna otur. Dizlerin üstüne iki ağır dambıl yerleştir. Parmak ucunda topukları yukarı kaldır.",
+    weightAdvice: "Dizlerin üstüne 2 × 16-24 kg dambıl."
+  },
+  "Hafif Bisiklet": {
+    altName: "0° Eğimli Yürüyüş Bandı (Hafif Tempo) veya Elliptical (Uzay Yürüyüşü)",
+    reason: "Bisikletler doluysa topuk vurmadan, aşile darbe bindirmeden eklemleri ısıtır.",
+    setup: "Eğimsiz (0°) bantta 4.5 - 5.0 km/s hızla 5 dk hafif yürüyüş yap.",
+    weightAdvice: "Vücut ağırlığı."
   }
 };
 
@@ -9924,14 +10043,17 @@ const TodayEngine = {
 // GYM MODE ENGINE
 // ============================================================
 const GymModeEngine = {
+  currentExName: null,
+
   openAlternativeModal(exName) {
+    this.currentExName = exName;
     const modal = document.getElementById('gymAltModal');
     if (!modal) return;
     
     let info = EXERCISE_ALTERNATIVES[exName];
     if (!info) {
       for (const k in EXERCISE_ALTERNATIVES) {
-        if (exName.toLowerCase().includes(k.toLowerCase())) {
+        if (exName.toLowerCase().includes(k.toLowerCase()) || k.toLowerCase().includes(exName.toLowerCase())) {
           info = EXERCISE_ALTERNATIVES[k];
           break;
         }
@@ -9942,11 +10064,13 @@ const GymModeEngine = {
     const altNameEl = document.getElementById('altModalAltName');
     const reasonEl = document.getElementById('altModalReason');
     const setupEl = document.getElementById('altModalSetup');
+    const weightEl = document.getElementById('altModalWeight');
 
     if (titleEl) titleEl.textContent = `🔄 "${exName}" Yerine Alternatif`;
     if (altNameEl) altNameEl.textContent = info ? info.altName : "Dumbbell veya Vücut Ağırlığı Eşdeğeri";
     if (reasonEl) reasonEl.textContent = info ? info.reason : "Aynı kas grubunu omurgaya ve aşile baskı yapmadan uyarır.";
     if (setupEl) setupEl.textContent = info ? info.setup : "Hareketi ağrısız sınırda, 2-1-2 kontrollü tempoyla uygulayın.";
+    if (weightEl) weightEl.textContent = info ? (info.weightAdvice || "Hafif/orta kontrollü kilo ile başlayın.") : "Hafif/orta kontrollü kilo ile başlayın.";
 
     modal.classList.add('open');
   },
@@ -9954,6 +10078,73 @@ const GymModeEngine = {
   closeAlternativeModal() {
     const modal = document.getElementById('gymAltModal');
     if (modal) modal.classList.remove('open');
+  },
+
+  applyAlternativeToCard() {
+    const exName = this.currentExName;
+    if (!exName) {
+      this.closeAlternativeModal();
+      return;
+    }
+
+    let info = EXERCISE_ALTERNATIVES[exName];
+    if (!info) {
+      for (const k in EXERCISE_ALTERNATIVES) {
+        if (exName.toLowerCase().includes(k.toLowerCase()) || k.toLowerCase().includes(exName.toLowerCase())) {
+          info = EXERCISE_ALTERNATIVES[k];
+          break;
+        }
+      }
+    }
+    const altName = info ? info.altName : "Dumbbell Muadili";
+
+    // Find card
+    const card = document.querySelector(`.exercise-card[data-name="${exName}"]`);
+    if (card) {
+      card.setAttribute('data-active-alt', altName);
+      
+      let badge = card.querySelector('.alt-active-pill');
+      if (!badge) {
+        badge = document.createElement('span');
+        badge.className = 'alt-active-pill';
+        badge.style.cssText = 'display: inline-flex; align-items: center; gap: 4px; background: rgba(6, 182, 212, 0.2); border: 1px solid #06b6d4; color: #22d3ee; padding: 2px 8px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; margin-left: 6px; vertical-align: middle;';
+        
+        const nameEl = card.querySelector('.ex-name');
+        if (nameEl && nameEl.parentNode) {
+          nameEl.parentNode.insertBefore(badge, nameEl.nextSibling);
+        }
+      }
+      badge.innerHTML = `🔄 Muadil: ${altName} <button type="button" class="btn-revert-alt" onclick="event.stopPropagation(); GymModeEngine.revertAlternative('${exName}')" style="background: none; border: none; color: #f87171; cursor: pointer; padding: 0 4px; font-weight: 800; font-size: 0.9rem;" title="Orijinal makineye geri dön" aria-label="Orijinal makineye dön">✕</button>`;
+      badge.style.display = 'inline-flex';
+
+      // Update QuickSetEngine session data
+      if (!QuickSetEngine.workoutSessionData[exName]) {
+        QuickSetEngine.workoutSessionData[exName] = { sets: [], weight: null, reps: 12 };
+      }
+      QuickSetEngine.workoutSessionData[exName].isAlternative = true;
+      QuickSetEngine.workoutSessionData[exName].altName = altName;
+      
+      QuickSetEngine.saveActiveSession();
+      QuickSetEngine.updateLiveIndicator();
+    }
+
+    this.closeAlternativeModal();
+  },
+
+  revertAlternative(exName) {
+    const card = document.querySelector(`.exercise-card[data-name="${exName}"]`);
+    if (card) {
+      card.removeAttribute('data-active-alt');
+      const badge = card.querySelector('.alt-active-pill');
+      if (badge) badge.remove();
+    }
+
+    if (QuickSetEngine.workoutSessionData[exName]) {
+      delete QuickSetEngine.workoutSessionData[exName].isAlternative;
+      delete QuickSetEngine.workoutSessionData[exName].altName;
+      QuickSetEngine.saveActiveSession();
+      QuickSetEngine.updateLiveIndicator();
+    }
   },
 
   openPainModal(exName) {
