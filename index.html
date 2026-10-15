@@ -9334,8 +9334,8 @@ const QuickSetEngine = {
       if (session && session.date === todayStr && session.data) {
         this.workoutSessionData = session.data;
         for (const [exName, exInfo] of Object.entries(this.workoutSessionData)) {
-          const card = document.querySelector(`.exercise-card[data-name="${exName}"]`);
-          if (card) {
+          const cards = document.querySelectorAll(`.exercise-card[data-name="${exName}"]`);
+          cards.forEach(card => {
             const isUni = this.isUnilateral(exName);
             const activeSide = exInfo.activeSide || (isUni ? 'sol' : 'cift');
             
@@ -9356,17 +9356,19 @@ const QuickSetEngine = {
             }
             if (exInfo.isAlternative && exInfo.altName) {
               card.setAttribute('data-active-alt', exInfo.altName);
+              
               let badge = card.querySelector('.alt-active-pill');
               if (!badge) {
                 badge = document.createElement('span');
                 badge.className = 'alt-active-pill';
                 badge.style.cssText = 'display: inline-flex; align-items: center; gap: 4px; background: rgba(6, 182, 212, 0.2); border: 1px solid #06b6d4; color: #22d3ee; padding: 2px 8px; border-radius: 6px; font-size: 0.76rem; font-weight: 700; margin-left: 6px; vertical-align: middle;';
+                
                 const nameEl = card.querySelector('.ex-name');
                 if (nameEl && nameEl.parentNode) {
                   nameEl.parentNode.insertBefore(badge, nameEl.nextSibling);
                 }
               }
-              badge.innerHTML = `🔄 Muadil: ${exInfo.altName} <button type="button" class="btn-revert-alt" onclick="event.stopPropagation(); GymModeEngine.revertAlternative('${exName}')" style="background: none; border: none; color: #f87171; cursor: pointer; padding: 0 4px; font-weight: 800; font-size: 0.9rem;" title="Orijinal makineye geri dön" aria-label="Orijinal makineye dön">✕</button>`;
+              badge.innerHTML = `🔄 Muadil: ${exInfo.altName} <button type="button" class="btn-revert-alt" onclick="event.stopPropagation(); GymModeEngine.revertAlternative('${exName}', this)" style="background: none; border: none; color: #f87171; cursor: pointer; padding: 0 4px; font-weight: 800; font-size: 0.9rem;" title="Orijinal makineye geri dön" aria-label="Orijinal makineye dön">✕</button>`;
               badge.style.display = 'inline-flex';
             }
             if (exInfo.weight !== undefined && exInfo.weight !== null) {
@@ -9377,7 +9379,7 @@ const QuickSetEngine = {
               const dispR = card.querySelector('.reps-display');
               if (dispR) dispR.textContent = `${exInfo.reps} tkr`;
             }
-          }
+          });
         }
         this.updateLiveIndicator();
       }
@@ -10365,9 +10367,13 @@ const GymModeEngine = {
     }
     const altName = info ? info.altName : "Dumbbell Muadili";
 
-    // Find card
-    const card = document.querySelector(`.exercise-card[data-name="${exName}"]`);
-    if (card) {
+    // Target active week and day pane first, or fallback to any matching card across DOM
+    const activeTab = document.querySelector('#workoutTabContainer .tab-content.active') || document;
+    const activePane = activeTab.querySelector('.workout-day-pane.active') || activeTab;
+    const cards = activePane.querySelectorAll(`.exercise-card[data-name="${exName}"]`);
+    const targetCards = cards.length > 0 ? cards : document.querySelectorAll(`.exercise-card[data-name="${exName}"]`);
+
+    targetCards.forEach(card => {
       card.setAttribute('data-active-alt', altName);
       
       let badge = card.querySelector('.alt-active-pill');
@@ -10381,30 +10387,33 @@ const GymModeEngine = {
           nameEl.parentNode.insertBefore(badge, nameEl.nextSibling);
         }
       }
-      badge.innerHTML = `🔄 Muadil: ${altName} <button type="button" class="btn-revert-alt" onclick="event.stopPropagation(); GymModeEngine.revertAlternative('${exName}')" style="background: none; border: none; color: #f87171; cursor: pointer; padding: 0 4px; font-weight: 800; font-size: 0.9rem;" title="Orijinal makineye geri dön" aria-label="Orijinal makineye dön">✕</button>`;
+      badge.innerHTML = `🔄 Muadil: ${altName} <button type="button" class="btn-revert-alt" onclick="event.stopPropagation(); GymModeEngine.revertAlternative('${exName}', this)" style="background: none; border: none; color: #f87171; cursor: pointer; padding: 0 4px; font-weight: 800; font-size: 0.9rem;" title="Orijinal makineye geri dön" aria-label="Orijinal makineye dön">✕</button>`;
       badge.style.display = 'inline-flex';
+    });
 
-      // Update QuickSetEngine session data
-      if (!QuickSetEngine.workoutSessionData[exName]) {
-        QuickSetEngine.workoutSessionData[exName] = { sets: [], weight: null, reps: 12 };
-      }
-      QuickSetEngine.workoutSessionData[exName].isAlternative = true;
-      QuickSetEngine.workoutSessionData[exName].altName = altName;
-      
-      QuickSetEngine.saveActiveSession();
-      QuickSetEngine.updateLiveIndicator();
+    // Update QuickSetEngine session data
+    if (!QuickSetEngine.workoutSessionData[exName]) {
+      QuickSetEngine.workoutSessionData[exName] = { sets: [], weight: null, reps: 12 };
     }
+    QuickSetEngine.workoutSessionData[exName].isAlternative = true;
+    QuickSetEngine.workoutSessionData[exName].altName = altName;
+    
+    QuickSetEngine.saveActiveSession();
+    QuickSetEngine.updateLiveIndicator();
 
     this.closeAlternativeModal();
   },
 
-  revertAlternative(exName) {
-    const card = document.querySelector(`.exercise-card[data-name="${exName}"]`);
-    if (card) {
+  revertAlternative(exName, btn = null) {
+    const activeTab = document.querySelector('#workoutTabContainer .tab-content.active') || document;
+    const activePane = activeTab.querySelector('.workout-day-pane.active') || activeTab;
+    const cards = (btn && btn.closest && btn.closest('.exercise-card')) ? [btn.closest('.exercise-card')] : (activePane.querySelectorAll(`.exercise-card[data-name="${exName}"]`).length > 0 ? activePane.querySelectorAll(`.exercise-card[data-name="${exName}"]`) : document.querySelectorAll(`.exercise-card[data-name="${exName}"]`));
+
+    cards.forEach(card => {
       card.removeAttribute('data-active-alt');
       const badge = card.querySelector('.alt-active-pill');
       if (badge) badge.remove();
-    }
+    });
 
     if (QuickSetEngine.workoutSessionData[exName]) {
       delete QuickSetEngine.workoutSessionData[exName].isAlternative;
