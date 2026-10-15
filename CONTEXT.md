@@ -52,13 +52,14 @@ Proje arşivden çıkarıldı, `Kas_Zirhi` adıyla ana projeler dizinine taşın
 - **Salon Antrenman Modu:** Alt gün sekmeleri (Gün 1-3, Gün 4-7), tek taraflı egzersizlerde Sol/Sağ bağımsız set takibi (sol öncelikli kuralı), dinamik RPE rozet okuma, stepper NaN kalkanı, "Makine Doluysa Alternatif" sistemi (30 makine muadili), "Ağrı / Semptom Bildir" anlık triyajı ve 3 bağımsız klinik bölge (Boyun C5-7, Sol Omuz, Aşil) seans sonu triyajı.
 - **Egzersiz Animasyonları & PWA:** `dist/manifest.json`, `dist/sw.js` (v1.6) ve `dist/exercises/` (26/26 gerçeğe uygun 180×180 animasyonlu GIF tam paket, ExerciseDB kaynaklı).
 - **Veri Güvenliği:** v2 kayıpsız JSON yedekleme/geri yükleme; gerçek Sol/Sağ telemetrisi ile asimetri barı; dürüst yaşam tarzı kütüğü.
-- **Test Doğrulaması:** 7 audit açığının Playwright E2E otomasyon testi (`scratch/verify_all_7_fixes.py`) 6/6 başarı ve 0 konsol hatasıyla onaylandı.
+- **Test Doğrulaması:** Canlı üretim ortamı (`https://mami35701.github.io/kas-zirhi/`) Playwright E2E (`scratch/test_live_audit.py`) ile 7/7 adımda (PWA SW v1.6, triyaj, alternatifler, unilateral telemetri, SVG asimetri, güvenlik kalkanları, 0 konsol hatası) %100 başarıyla onaylandı.
 
 ---
 
 ## Sıradaki Adım
-1. Git repo güncellemelerinin (`main` ve `gh-pages` subtree) GitHub'a push edilmesi.
-2. Kullanıcının telefonunda (Pixel 9 Pro XL) https://mami35701.github.io/kas-zirhi/ adresinde PWA v1.6 güncellemesini alması.
+1. Kullanıcının telefonunda (Pixel 9 Pro XL) https://mami35701.github.io/kas-zirhi/ adresinde PWA v1.6 sürümünü doğrulaması ve 15 günlük salon kampı rehabilitasyon/kuvvet seanslarına başlaması.
+2. Sahadan gelecek yeni ihtiyaçlara göre sonraki fazın (Faz N) tanımlanması.
+
 
 
 ---
