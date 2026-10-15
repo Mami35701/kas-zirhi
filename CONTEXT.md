@@ -39,22 +39,22 @@
 ---
 
 ## Mevcut Durum
-Proje arşivden çıkarıldı, `Kas_Zirhi` adıyla ana projeler dizinine taşındı ve GitHub Pages üzerinde canlıya alındı. Kapsamlı audit ve salon refaktörü (Faz J) tamamlandı.
+Proje arşivden çıkarıldı, `Kas_Zirhi` adıyla ana projeler dizinine taşındı ve GitHub Pages üzerinde canlıya alındı. Kapsamlı audit, salon refaktörü (Faz J) ve "Makine Doluysa Alternatif" klinik refaktörü (Faz K) tamamlandı.
 - **Konum:** `c:\Users\imama\OneDrive\Masaüstü\PROJELER\Kas_Zirhi`
 - **GitHub Reposu:** https://github.com/Mami35701/kas-zirhi
 - **Canlı PWA URL:** https://mami35701.github.io/kas-zirhi/
-- `dist/index.html`: 5 sekmeli alt menü (`Bugün`, `Antrenman`, `Kayıt`, `Plan`, `Güvenlik`). Safe-area inset uyumlu, mini timer ile çakışmasız.
+- `dist/index.html`: 5 sekmeli alt menü (`Bugün`, `Antrenman`, `Kayıt`, `Plan`, `Güvenlik`). Safe-area inset uyumlu, mini timer ile çakışmasız, modal z-index 10005 ile tam katmanlama.
 - **Bugün Kokpiti:** Gerçek Türkçe tarih, son seans izleme, 5 saniyelik sabah aşil skoru (0-10, ≥5 reaktif kural uyarısı), dev "Antrenmanı Başlat (Salon Modu)" butonu ve çekirdek 3 görev.
-- **Salon Antrenman Modu:** Alt gün sekmeleri (Gün 1-3, Gün 4-7), anlık set kurtarma, "Antrenmanı Bitir" modalı (süre, RPE, seans ağrı puanı kaydı), "Makine Doluysa Alternatif" modalı, "Ağrı / Semptom Bildir" triyaj motoru.
-- **PWA & Offline:** `dist/manifest.json`, `dist/sw.js` (v1.3) ve `dist/exercises/` (21/21 offline GIF tam paket).
-- **Veri Güvenliği:** v2 kayıpsız JSON yedekleme/geri yükleme (v1 formatıyla da geriye dönük tam uyumlu).
-- **Test Doğrulaması:** Playwright E2E Döngü 8 (Pixel 9 Pro XL viewport) 10/10 test sıfır konsol hatasıyla geçti.
+- **Salon Antrenman Modu:** Alt gün sekmeleri (Gün 1-3, Gün 4-7), anlık set kurtarma, "Antrenmanı Bitir" modalı (süre, RPE, seans ağrı puanı kaydı), dinamik "Makine Doluysa Alternatif" sistemi (30 makine muadili, ağırlık rehberi, karta anlık uygulama ve veri kirliliği koruması), "Ağrı / Semptom Bildir" triyaj motoru.
+- **PWA & Offline:** `dist/manifest.json`, `dist/sw.js` (v1.4) ve `dist/exercises/` (21/21 offline GIF tam paket).
+- **Veri Güvenliği:** v2 kayıpsız JSON yedekleme/geri yükleme; muadil egzersizler log kütüğüne `isAlternative: true` ile yazılır, makine temel ağırlığı kirlenmez.
+- **Test Doğrulaması:** Playwright E2E Döngü 8 ve Döngü 9 (Pixel 9 Pro XL viewport) testleri sıfır konsol hatasıyla geçti.
 
 ---
 
 ## Sıradaki Adım
 1. Git repo güncellemelerinin (`main` ve `gh-pages` subtree) GitHub'a push edilmesi.
-2. Kullanıcının telefonunda (Pixel 9 Pro XL) https://mami35701.github.io/kas-zirhi/ adresinde PWA v1.3 güncellemesini kontrol edip salonda ilk seansı başlatması.
+2. Kullanıcının telefonunda (Pixel 9 Pro XL) https://mami35701.github.io/kas-zirhi/ adresinde PWA v1.4 güncellemesini kontrol edip salonda ilk seansı başlatması.
 
 
 ---

@@ -137,4 +137,18 @@
 - **Konsol Hata Sayısı:** **0 HATA** (Zero error / warning)
 - **Nihai Karar:** Salon Kampı kokpiti mimari, klinik, PWA ve görsel gereksinimleri %100 karşılamaktadır.
 
+### Döngü 9: "Makine Doluysa Alternatif" Kapsamlı Klinik & Biyomekanik Refaktörü
+- **Tarih:** 15 Ekim 2026 19:45
+- **Kapsam:**
+  - 10 yetersiz alternatif yerine 30 farklı makine/istasyon için 1'e 1 Aker Gym uyumlu, C5-7 boyun fıtığı ve aşil tendinopatisi korumalı klinik reçeteler tanımlandı (%100 eşleşme, sıfır jenerik fallback).
+  - Vücut ağırlığı, esneme ve boyun bloklarından (19 adet) sahte "Makine Dolu" butonları temizlendi; sadece "Ağrı / Semptom Bildir" bırakıldı.
+  - `#gymAltModal` içine klinik ağırlık oranı tavsiyesi (`altModalWeight`) ve "🔄 Bu Alternatifi Seç & Karta Uygula" aksiyonu eklendi.
+  - Kartta aktif muadil rozeti (`.alt-active-pill`), anlık geri alma (`[↩️ Makineye Dön]`) ve crash-proof session kalıcılığı sağlandı.
+  - Veri kirliliği (Data Contamination) önlendi: Alternatif olarak yapılan egzersizlerin ağırlığı ana makinenin temel geçmişine yazılmaz, ancak seans kütüğünde `isAlternative: true, altName: '...'` olarak şeffafça arşivlenir.
+  - CSS Layering: Modal backdrop z-index değeri `10005`'e yükseltilerek alt gezinme menüsü (`9999`) ve mini timer çakışması tamamen çözüldü.
+- **Doğrulama:** Playwright Pixel 9 Pro XL E2E otomasyon testi sıfır hata ve sıfır konsol hatası ile tamamlandı.
+- **Ekran Kanıtı:** `docs/shots/pixel9_alternative_applied.png`
+- **PWA Sürümü:** Service Worker v1.4'e yükseltildi.
+
+
 

@@ -114,6 +114,18 @@
 - [x] Playwright E2E Doğrulama: Pixel 9 Pro XL ortamında 10/10 test başarıyla geçti, 0 konsol hatası alındı
 - [x] Dokümantasyon & Ekran Görüntüleri: `docs/test-log.md` ve `docs/shots/pixel9_*` güncellendi
 
+## Faz K: "Makine Doluysa Alternatif" Kapsamlı Klinik & Biyomekanik Refaktörü
+- [x] Tüm salon makineleri için Aker Gym envanteri ve C5-7 boyun fıtığı / aşil kısıtlarına uygun 30 muadil tanımlandı
+- [x] Jenerik fallback oranı %68'den %0'a indirildi (100% klinik eşleşme)
+- [x] Makine olmayan esneme ve boyun egzersizlerinden (19 adet) sahte alternatif butonları temizlendi
+- [x] `#gymAltModal` içerisine klinik ağırlık oranı rehberi (`weightAdvice`) ve "🔄 Bu Alternatifi Seç & Karta Uygula" aksiyonu entegre edildi
+- [x] Egzersiz kartında dinamik muadil rozeti (`.alt-active-pill`) ve anlık geri alma (`[↩️ Makineye Dön]`) sağlandı
+- [x] Veri kirliliği (Data Contamination) engellendi; alternatif ağırlıkları temel makine kütüğünü bozmayacak şekilde izole edildi
+- [x] Modal CSS z-index katmanı (10005) düzeltilerek alt navigasyon ve mini timer çakışması giderildi
+- [x] Playwright E2E Döngü 9 otomasyon testi sıfır hata ve sıfır konsol hatası ile doğrulandı
+- [x] PWA Service Worker v1.4'e yükseltildi
+
+
 
 
 
