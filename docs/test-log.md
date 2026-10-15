@@ -16,10 +16,29 @@
 | 5 | 14.10.2026 12:48 | Faz F: PWA, WakeLock & Sürtünmesiz UX | Gizli sekme seçici gecikmesi | TabWeek2 aktifken görünmeyen DOM öğesi tıklandı | Aktif sekme seçicisi `#tabWeek2` eklendi; PWA, WakeLock, Form/RPE modalı ve QuickSet testleri sıfır hatayla geçti | ✅ |
 | 6 | 14.10.2026 15:02 | Faz G: Profesyonel Hibrit Egzersiz Animasyonları & Form Rehberleri | Inline metin tırnak hatası (SyntaxError: missing ) after argument list) & jenerik çöp adam animasyonu | Türkçe kesme işaretleri (`%30'a`, `3/10'u`) inline JS parametresini kırıyordu; animasyonlar jenerikti | `window.EXERCISE_GUIDES_MAP` ID ayrıştırması kuruldu; 12 adet profesyonel insan hareket GIF'i (1.25 MB toplam, offline `dist/exercises/`) entegre edildi; klinik servis ve aşil için hassas biyomekanik vektör SVG'leri korundu. 0 konsol hatası ile doğrulandı | ✅ |
 | 7 | 14.10.2026 15:30 | Faz H: 5 Sekmeli Mobil Mimari & Günlük Kokpit Dönüşümü | 30 bölümlük dikey scroll yorgunluğu ve jenerik fallback ağırlıklar | Rehber kitabı formatı salonda pratik kullanıma uygun değildi; boş log durumunda varsayılan 50kg/55kg ve 45/55 asimetri yanıltıcıydı | 5 sekmeli alt menü (`Bugün`, `Antrenman`, `Kayıt`, `Plan`, `Güvenlik`), 5 saniyelik reaktif sabah aşil skoru, tek tuşla salon modu, 'Makine Doluysa Alternatif' ve 'Ağrı / Semptom Bildir' triyaj motoru eklendi; dürüst boş durum ve AI destekli klinik konumlandırma sağlandı. Playwright ile 0 konsol hatası doğrulandı | ✅ |
+| 8 | 15.10.2026 18:15 | Faz J: Kapsamlı Audit & Salon Refaktörü | 500 KB suni kısıt, eksik 9 GIF çevrimdışı önbelleği, RAM seans kaybı, eksik "Antrenmanı Bitir" butonu, sub-day scroll yorgunluğu | 500 KB yapay sınırı kaldırıldı; sw.js v1.3 ile 21 GIF önbelleğe alındı; crash-proof aktif seans kalıcılığı (`kas_zirhi_active_session`) ve tek tıkla seans tamamlama modalı eklendi; gün seçici alt sekmeler eklendi; v2 tam meta-yedekleme ve safe-area düzeltmeleri yapıldı | Playwright 10/10 test sıfır hatayla geçti, 4 mobil ekran görüntüsü üretildi | ✅ |
 
 ---
 
 ## Detaylı Döngü Raporları
+
+### Döngü 8: Kapsamlı Audit, Çevrimdışı PWA Tamamlama & Salon Refaktörü
+- **Tarih:** 15 Ekim 2026 18:15
+- **Kapsam & Neden:** Kullanıcı direktifi doğrultusunda 500 KB yapay sınırının kaldırılması, çok disiplinli audit sonucu tespit edilen 7 kritik açığın giderilmesi ve Pixel 9 Pro XL üzerinde tam E2E doğrulaması.
+- **Test Edilen Bileşenler:**
+  1. `dist/sw.js` (v1.3): Tüm 21 offline egzersiz GIF'inin eksiksiz önbelleklenmesi.
+  2. `switchWorkoutDay()`: Hafta 1 (Gün 1-3) ve Hafta 2 (Gün 4-7) için alt gün sekme sistemi ve odak görünümü (2,000 satırlık dikey scroll yükünün sıfırlanması).
+  3. `QuickSetEngine.stepReps()` çalışma zamanı hata düzeltmesi (`getDefaultWeight` alias).
+  4. Crash-Proof Seans Kalıcılığı: Set işaretleme ve kilo stepperlarının `kas_zirhi_active_session` ile `localStorage`'a anlık yazılması; sayfa yenilenmesinde (reload) tamamlanan setlerin eksiksiz kurtarılması.
+  5. Tek Dokunuşla Seans Tamamlama: `#finishWorkoutBar` ve `#finishWorkoutModal` ile doğrudan antrenman ekranından seansı süre, RPE ve ağrı durumuyla kaydetme akışı; `viewToday`'e başarıyla dönme.
+  6. v2 Birleşik JSON Yedekleme: Egzersiz logları + sabah aşil skoru geçmişi + ağrı triyaj logları + günlük görevler + checklist durumlarının tek dosyada yedeklenmesi ve geriye dönük uyumlu geri yüklenmesi.
+  7. Mobil Ergonomi: Safe-area-inset (`env(safe-area-inset-bottom)`) entegrasyonu ve `.mini-timer-bar`'ın alt menü çubuğunun üzerine binmesinin engellenmesi (`bottom: calc(76px + ...)`).
+- **Sonuçlar:**
+  - **Statik Sözdizimi Kontrolü:** 3 `<script>` bloğu `node --check` ile sıfır hata verdi — **BAŞARILI**
+  - **Playwright E2E Doğrulaması:** Pixel 9 Pro XL görünümünde 10 test adımı (Sayfa yükleme, 5 sekme, aşil reaktif kuralı, akıllı gün seçici, quick-set stepper, reload seans kurtarma, finish modal kaydetme, v2 export/import, mini sayaç katman ayrımı, konsol hata taraması) eksiksiz geçti — **BAŞARILI**
+  - **Konsol Hatası:** **0 HATA** (Zero error / warning) — **BAŞARILI**
+  - **Ekran Görüntüleri:** `pixel9_today_cockpit.png`, `pixel9_workout_day_subtabs.png`, `pixel9_finish_workout_modal.png`, `pixel9_log_v2_export.png` üretildi.
+- **Karar:** Kas Zırhı platformu artık spor salonunda, seyahatte ve çevrimdışıyken sıfır veri kaybı riskiyle ve sürtünmesiz bir ergonomiyle hizmet vermektedir.
 
 ### Döngü 7: 5 Sekmeli Mobil Mimari & Günlük Kokpit Dönüşümü
 - **Tarih:** 14 Ekim 2026 15:30

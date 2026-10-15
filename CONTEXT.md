@@ -23,32 +23,38 @@
 | Mola Sayacı | Date.now() tabanlı SVG dairesel timer | 14.10.2026 | Sekme arka plana geçtiğinde setTimeout sapmasını engelleyen mutlak zaman kontrolü |
 | Tarih Hatırlatıcı | Date() bazlı dinamik faz ve uyarı motoru | 14.10.2026 | 14 Eki, 2 Kas, 9 Kas, 2 Ara, 5 Ara ve tahlil tarihlerini otomatik algılama |
 | Canlı Dağıtım | GitHub Pages (https://mami35701.github.io/kas-zirhi/) | 14.10.2026 | HTTPS, sıfır maliyet, anında PWA kurulabilir mobil ve offline erişim |
+| Dosya Boyutu Kısıtı | 500 KB Yapay Sınırı Kaldırıldı | 15.10.2026 | Kullanıcı onayıyla kaldırıldı; Gzip/Brotli ve PWA önbelleklemesi ile performans ve sıfır sürtünmeli UX önceliklendirildi |
+| Çevrimdışı Varlıklar | Service Worker v1.3 (21/21 Offline GIF) | 15.10.2026 | Tüm 21 egzersiz animasyonu tam önbelleğe alındı, uçuşta/salonda sıfır kırılma |
+| Aktif Seans Kurtarma | LocalStorage (`kas_zirhi_active_session`) | 15.10.2026 | Antrenman ortasında tarayıcı çökse veya kapansa bile tamamlanan setler anında korunur |
+| Veri Formatı | v2 Bütüncül (Omnibus) Kayıpsız JSON | 15.10.2026 | Antrenman, sabah aşil, anlık triyaj, alışkanlıklar ve checklistler tek dosyada export/import |
 
 ---
 
 ## Geçersiz / Eski Bölümler
 - `_Arsiv/Salon Proje v2.md` klasör yolu geçersizdir; proje `c:\Users\imama\OneDrive\Masaüstü\PROJELER\Kas_Zirhi` kök dizinine taşınmıştır.
+- "500 KB altında tutma" zorunluluğu GEÇERSİZDİR; mimari kalite ve offline tamlık esastır.
 - GÜN 1-7 planında Pzt-Çar-Cum sabit takvim günü algısı: 14 Ekim Çarşamba başladığı için seanslar Gün 1, Gün 2, Gün 3 şeklinde dinamik gösterilecektir.
 - 30 Ekim - 1 Kasım arası: Geçiş dönemi olarak işaretlenmiş, yolculuk hazırlığı önerilmiştir.
 
 ---
 
 ## Mevcut Durum
-Proje arşivden çıkarıldı, `Kas_Zirhi` adıyla ana projeler dizinine taşındı ve GitHub Pages üzerinde canlıya alındı.
+Proje arşivden çıkarıldı, `Kas_Zirhi` adıyla ana projeler dizinine taşındı ve GitHub Pages üzerinde canlıya alındı. Kapsamlı audit ve salon refaktörü (Faz J) tamamlandı.
 - **Konum:** `c:\Users\imama\OneDrive\Masaüstü\PROJELER\Kas_Zirhi`
 - **GitHub Reposu:** https://github.com/Mami35701/kas-zirhi
 - **Canlı PWA URL:** https://mami35701.github.io/kas-zirhi/
-- `dist/index.html`: 5 sekmeli alt menü (`Bugün`, `Antrenman`, `Kayıt`, `Plan`, `Güvenlik`).
+- `dist/index.html`: 5 sekmeli alt menü (`Bugün`, `Antrenman`, `Kayıt`, `Plan`, `Güvenlik`). Safe-area inset uyumlu, mini timer ile çakışmasız.
 - **Bugün Kokpiti:** Gerçek Türkçe tarih, son seans izleme, 5 saniyelik sabah aşil skoru (0-10, ≥5 reaktif kural uyarısı), dev "Antrenmanı Başlat (Salon Modu)" butonu ve çekirdek 3 görev.
-- **Salon Antrenman Modu:** Büyük set butonları, gerçek son logdan veya boş/vücut ağırlığından başlama, "Makine Doluysa Alternatif" modalı, "Ağrı / Semptom Bildir" anlık triyaj motoru.
-- **PWA & Offline:** `dist/manifest.json`, `dist/sw.js` ve `dist/exercises/` (12 offline GIF) tam uyumlu, service worker önbelleklemesi devrede.
-- **Canlılık Testi:** Canlı URL HTTP 200, manifest 200, sw.js 200, offline GIF'ler 200 ile doğrulandı.
+- **Salon Antrenman Modu:** Alt gün sekmeleri (Gün 1-3, Gün 4-7), anlık set kurtarma, "Antrenmanı Bitir" modalı (süre, RPE, seans ağrı puanı kaydı), "Makine Doluysa Alternatif" modalı, "Ağrı / Semptom Bildir" triyaj motoru.
+- **PWA & Offline:** `dist/manifest.json`, `dist/sw.js` (v1.3) ve `dist/exercises/` (21/21 offline GIF tam paket).
+- **Veri Güvenliği:** v2 kayıpsız JSON yedekleme/geri yükleme (v1 formatıyla da geriye dönük tam uyumlu).
+- **Test Doğrulaması:** Playwright E2E Döngü 8 (Pixel 9 Pro XL viewport) 10/10 test sıfır konsol hatasıyla geçti.
 
 ---
 
 ## Sıradaki Adım
-1. Kullanıcının telefonunda (Pixel 9 Pro XL) https://mami35701.github.io/kas-zirhi/ adresini açıp "Ana Ekrana Ekle" (PWA) yaparak spor salonu/seyahat için test etmesi.
-2. İlk gün antrenmanı (Full Body A) ve sabah aşil skorunun kaydedilmesi.
+1. Git repo güncellemelerinin (`main` ve `gh-pages` subtree) GitHub'a push edilmesi.
+2. Kullanıcının telefonunda (Pixel 9 Pro XL) https://mami35701.github.io/kas-zirhi/ adresinde PWA v1.3 güncellemesini kontrol edip salonda ilk seansı başlatması.
 
 
 ---

@@ -99,4 +99,21 @@
 - [x] PWA Service Worker (`sw.js`) ve `manifest.json` canlı HTTPS ortamında HTTP 200 ile doğrulanması
 - [x] Canlı PWA URL'inin teslim edilmesi: `https://mami35701.github.io/kas-zirhi/`
 
+## Faz J: Kapsamlı Audit, Çevrimdışı PWA Tamamlama & Salon Refaktörü
+- [x] Çok disiplinli Audit Task'ı oluşturuldu (`AUDIT_TASK.md`)
+- [x] Sistem genelinde kapsamlı audit icra edildi ve 7 kritik operasyonel risk raporlandı (`AUDIT_RAPORU.md`)
+- [x] Beyin fırtınası & salon/seyahat ergonomisi refaktör planı hazırlandı (`REFACTOR_TASK.md`)
+- [x] Yapay 500 KB sınırı kaldırıldı; kod kalitesi, veri güvenliği ve sıfır sürtünme mimarisi benimsendi
+- [x] PWA Service Worker v1.3: Eksik 9 egzersiz GIF'i önbelleğe eklendi (toplam 21/21 offline GIF tam paket)
+- [x] Ergonomik Safe-Area Inset: Mobil alt menü ve mini timer çakışması `env(safe-area-inset-bottom)` ile çözüldü
+- [x] Alt Gün Sekmeleri (Sub-Day Tabs): Hafta 1 (Gün 1-3) ve Hafta 2 (Gün 4-7) için dikey kaydırma yorgunluğu sıfırlandı
+- [x] Çökme Korumalı Seans (Crash-Proof Active Session): Tamamlanan setler anlık `localStorage`'a yazılıyor, tarayıcı kapansa bile korunuyor
+- [x] Tek Tıkla "Antrenmanı Bitir" Modalı: Seans süresi, RPE ve seans ağrı puanı kaydedilip kokpite temiz dönüş
+- [x] v2 Bütüncül (Omnibus) Kayıpsız JSON Yedekleme: Antrenman, aşil, triyaj, alışkanlıklar ve checklistler tek dosyada export/import
+- [x] Runtime Hata Düzeltmeleri: QuickSetEngine `getDefaultWeight` TypeError giderildi, AudioEngine dokunmatik jest kilit açıcı eklendi
+- [x] Playwright E2E Doğrulama: Pixel 9 Pro XL ortamında 10/10 test başarıyla geçti, 0 konsol hatası alındı
+- [x] Dokümantasyon & Ekran Görüntüleri: `docs/test-log.md` ve `docs/shots/pixel9_*` güncellendi
+
+
+
 
