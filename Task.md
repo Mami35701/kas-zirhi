@@ -123,9 +123,20 @@
 - [x] Veri kirliliği (Data Contamination) engellendi; alternatif ağırlıkları temel makine kütüğünü bozmayacak şekilde izole edildi
 - [x] Modal CSS z-index katmanı (10005) düzeltilerek alt navigasyon ve mini timer çakışması giderildi
 - [x] Playwright E2E Döngü 9 otomasyon testi sıfır hata ve sıfır konsol hatası ile doğrulandı
-- [x] PWA Service Worker v1.4'e yükseltildi
-
-
-
-
-
+## Faz L: Egzersiz Görsel & Animasyon (GIF) Biyomekanik Doğruluk Karşılaştırması ve Tam Test Paketi
+- [x] Tüm 60 egzersiz kartının hareket görsel ve animasyonları biyomekanik uygunluk açısından denetlendi
+- [x] Uyumsuzluk tespit edilen 5 hareket için ExerciseDB orijinal veri tabanından birebir anatomik hat çizimli GIF'ler temin edildi:
+  * Pec Deck / Cable Crossover -> `exercises/pec_deck.gif` (90.8 KB, 180×180 px, 12 frame loop)
+  * Cable Crossover muadili -> `exercises/cable_crossover.gif` (65.3 KB, 180×180 px, 12 frame loop)
+  * Single Arm DB Row -> `exercises/single_arm_db_row.gif` (87.1 KB, 180×180 px, 12 frame loop)
+  * Eksantrik Heel Drop (Basamak) -> `exercises/heel_drop.gif` (69.2 KB, 180×180 px, 12 frame loop)
+  * Foam Roller / Stretching -> `exercises/foam_roller.gif` (53.4 KB, 180×180 px, 12 frame loop)
+- [x] Tüm yeni GIF'ler standart 180×180 px, nötr gri anatomi ve kırmızı kas vurgulu palete uyumlu optimize edildi (toplam 26/26 kusursuz GIF)
+- [x] `dist/sw.js` ve Service Worker önbelleği `kas-zirhi-v1.5` olarak güncellendi (26/26 çevrimdışı offline-first hazır)
+- [x] `ExerciseGuideEngine.guides` kılavuz verileri yeni hareketler için detaylı klinik ipuçları, omurga güvenliği ve Do/Don't kurallarıyla zenginleştirildi
+- [x] DOM hiyerarşisi onarıldı (5 egzersiz kartında animasyon div'i sonrası erken kapanma giderildi)
+- [x] Playwright E2E ve Python Test Paketi (`scratch/comprehensive_test_suite.py`) ile 3 aşamalı doğrulama tamamlandı:
+  1. Varlık bütünlüğü (26/26 geçerli 180×180 GIF, SW uyumu %100)
+  2. Kart haritalama doğruluğu (60/60 kart hatasız)
+  3. Gerçek tarayıcı runtime E2E testi (0 kırık görsel, 0 konsol hatası, modal ve muadil uygulama/geri alma döngüsü %100 başarılı)
+- [x] Detaylı biyomekanik doğruluk karşılaştırma raporu oluşturuldu (`docs/BIOMECHANICAL_ACCURACY_REPORT.md`)
