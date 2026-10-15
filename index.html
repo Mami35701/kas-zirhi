@@ -3803,8 +3803,8 @@ body {
       <div id="anim_ex_w1d4_5" class="card-anim-wrap">
         
         <div class="exercise-anim-container">
-          <img src="exercises/dynamic_warmup.gif" alt="Dinamik Isınma ve Mobilizasyon Formu" class="exercise-anim-img">
-          <div class="anim-caption">✔ Gövde & Kalça Rotasyonu • Omuz Isınması • Boyun Çevirme Kesinlikle Yasak!</div>
+          <img src="exercises/foam_roller.gif" alt="Foam Roller Torakal ve Sırt Esnetme Formu" class="exercise-anim-img">
+          <div class="anim-caption">✔ Torakal Omurga & Lat Mobilizasyonu • Yavaş Yuvarlanma • Boyuna Doğrudan Bası Uygulanmaz</div>
         </div>
         
       </div>
@@ -4267,8 +4267,8 @@ body {
       <div id="anim_ex_w2d4_4" class="card-anim-wrap">
         
         <div class="exercise-anim-container">
-          <img src="exercises/single_arm_row.gif" alt="Single Arm Cable Row Formu" class="exercise-anim-img">
-          <div class="anim-caption">✔ SOL Kol Öncelikli • Kürek Kemiğini Arkada Tam Sıkıştır • Nöral Uyarım</div>
+          <img src="exercises/single_arm_db_row.gif" alt="Tek Kol Dumbbell Row Sehpa Formu" class="exercise-anim-img">
+          <div class="anim-caption">✔ Sehpa Destekli Tek Kol DB Row • Nötr Omurga • Kürek Kemiğini Arkada Sıkıştır • Sol Öncelikli</div>
         </div>
         
       </div>
@@ -4914,8 +4914,8 @@ body {
       <div id="anim_ex_w2d5_6" class="card-anim-wrap">
         
         <div class="exercise-anim-container">
-          <img src="exercises/standing_calf.gif" alt="Standing Calf Raise Aşil Formu" class="exercise-anim-img">
-          <div class="anim-caption">✔ Düz Zemin • Tepe Noktada 2-3 sn İzometrik Tutuş • Topuk Zemin Altına ASLA Düşürülmez!</div>
+          <img src="exercises/heel_drop.gif" alt="Basamakta Eksantrik Heel Drop Formu" class="exercise-anim-img">
+          <div class="anim-caption">✔ Basamakta Parmak Ucu • İki Ayakla Yüksel • Tek Ayakla 5 sn Yavaş İniş (Alfredson Protokolü)</div>
         </div>
         
       </div>
@@ -5241,8 +5241,8 @@ body {
       <div id="anim_ex_w2d6_4" class="card-anim-wrap">
         
         <div class="exercise-anim-container">
-          <img src="exercises/chest_press.gif" alt="Chest Press Makine Formu" class="exercise-anim-img">
-          <div class="anim-caption">✔ Baş Arkalıkta Sabit • Dirsekler Gövdeye 45° • Kontrollü Eksantrik İtiş</div>
+          <img src="exercises/pec_deck.gif" alt="Pec Deck Makine Formu" class="exercise-anim-img">
+          <div class="anim-caption">✔ Dirsekler Pedlerde • Göğüs Kaslarıyla Sarılma Hareketi • Omuzları Zorlamadan Tepe Sıkıştırma</div>
         </div>
         
       </div>
@@ -5888,8 +5888,8 @@ body {
       <div id="anim_ex_w2d7_6" class="card-anim-wrap">
         
         <div class="exercise-anim-container">
-          <img src="exercises/standing_calf.gif" alt="Standing Calf Raise Aşil Formu" class="exercise-anim-img">
-          <div class="anim-caption">✔ Düz Zemin • Tepe Noktada 2-3 sn İzometrik Tutuş • Topuk Zemin Altına ASLA Düşürülmez!</div>
+          <img src="exercises/heel_drop.gif" alt="Basamakta Eksantrik Heel Drop Formu" class="exercise-anim-img">
+          <div class="anim-caption">✔ Basamakta Parmak Ucu • İki Ayakla Yüksel • Tek Ayakla 5 sn Yavaş İniş (Alfredson Protokolü)</div>
         </div>
         
       </div>
@@ -9526,6 +9526,54 @@ const ExerciseGuideEngine = {
       tempoDesc: "⬇️ 2 sn Bırak • ⏸️ 1 sn Sık • ⬆️ 2 sn Çek",
       biomech: "Öne yuvarlanan omuz postürünü düzeltir, subakromiyal sıkışma (impingement) riskini sıfırlar.",
       searchQuery: "face pull with external rotation form"
+    },
+    "Pec Deck / Cable Crossover": {
+      focus: "Pektoral İzolasyon & Göğüs Adduksiyonu",
+      doText: "Sırt ve baş pedde sabit. Dirsekler hafif bükülü açıda tutularak göğüs kaslarıyla kollar önde birleştirilir (sarılma hareketi). Tepe noktada 1-2 sn sıkıştırın.",
+      dontText: "Kolları omuz hizasından daha geriye aşırı açmayın (anterior kapsül ve boyun sıkışması riski). Gövdeyi öne bükmeyin.",
+      tempoDesc: "⬇️ 2 sn Kontrollü Aç • ⏸️ 1 sn Sıkıştır • ⬆️ 2 sn Kapat",
+      biomech: "Multi-joint pres hareketlerine kıyasla triseps ve omuz ön kapsülünü yormadan izole pektoral hipertrofi sağlar.",
+      searchQuery: "pec deck machine proper form chest fly"
+    },
+    "Single Arm DB Row": {
+      focus: "Unilateral Sırt & Sol Skapular Stabilizasyon",
+      doText: "Bir diz ve aynı el sehpada destekli, sırt zemine paralel ve düz. Dumbbell'ı kalçaya doğru dirseği geriye çekerek kaldırın, sol kürek kemiğini arkada sıkın.",
+      dontText: "Gövdeyi yana döndürerek rotasyonel savurma yapmayın. Başınızı yukarı kaldırmayın, boyun nötr doğrultuda yere baksın.",
+      tempoDesc: "⬇️ 2 sn İndir • ⏸️ 1 sn Skapula Sık • ⬆️ 2 sn Çek",
+      biomech: "Unilateral çalışma ile sol kürek kemiğindeki asimetrik kas güçsüzlüğünü ve kulunçları deaktive eder, omurgaya eksenel kompresyon bindirmez.",
+      searchQuery: "one arm dumbbell row flat bench form"
+    },
+    "Single Arm Cable Row": {
+      focus: "Tek Kol Çekiş & Skapular Retraksiyon",
+      doText: "Oturarak kabloyu göğsün alt kısmına doğru çekin. Hareketi kolla değil, sol kürek kemiğini geriye çekerek başlatın.",
+      dontText: "Gövdeyi aşırı döndürerek ivme kazanmayın. Omuzları yukarı kaldırmayın.",
+      tempoDesc: "⬇️ 2 sn Bırak • ⏸️ 1 sn Sık • ⬆️ 2 sn Çek",
+      biomech: "Sol kolda nöral uyarımı ve motor ünite katılımını artırır, skapular kanatlanmayı önler.",
+      searchQuery: "single arm cable row seated form"
+    },
+    "Eksantrik Heel Drop (Basamak)": {
+      focus: "Alfredson Protokolü - Aşil Eksantrik Yeniden Yapılanma",
+      doText: "Bir basamak kenarında ayak parmak kökleriyle durun. İki ayakla parmak ucuna yükselin, ağırlığı tek ayağa verin ve topuğu basamak seviyesinin altına 5 saniyede yavaşça indirin.",
+      dontText: "Aşil tendinitinin reaktif fazında aşırı hızlı düşüş veya zıplama yapmayın. Ağrı 4/10'u aşarsa çift ayakla düz zemine dönün.",
+      tempoDesc: "⬆️ 1 sn İki Ayakla Çık • ⏸️ 1 sn Denge • ⬇️ 5 sn Tek Ayakla Yavaş İniş",
+      biomech: "Eksantrik gerilim altında tendon kolajen liflerini tip-I yönünde hizalar, tendon kalınlaşmasını ve neovaskülarizasyonu tedavi eder.",
+      searchQuery: "alfredson eccentric heel drop achilles protocol"
+    },
+    "Eksantrik Heel Drop": {
+      focus: "Alfredson Protokolü - Aşil Eksantrik Yeniden Yapılanma",
+      doText: "Basamak kenarında parmak kökleriyle yükselin, tek ayak üzerinde 5 saniyede topuğu basamak seviyesi altına kontrollü indirin.",
+      dontText: "Sekme ve zıplama yapmayın, ağrı sınırını aşmayın.",
+      tempoDesc: "⏱️ 5 sn yavaş eksantrik iniş",
+      biomech: "Tendon kolajen sentezini uyarır, gastrocnemius ve soleus miyotendinöz bileşkesini güçlendirir.",
+      searchQuery: "alfredson eccentric heel drop exercise"
+    },
+    "Foam Roller / Stretching": {
+      focus: "Torakal Mobilite & Miyofasiyal Rahatlama",
+      doText: "Foam roller'ı sırtın orta kısmına (kürek kemikleri altı - torakal omurga) yerleştirin. Kalça hafif yukarıda, eller baş arkasında boynu desteklerken yavaşça 30-60 sn yuvarlanın.",
+      dontText: "FOAM ROLLER'I ASLA DOĞRUDAN SERVİKAL (BOYUN) BÖLGESİNE VEYA LOMBER (BEL ÇUKURUNA) UYGULAMAYIN! Fıtıklı disklere doğrudan bası riski doğurur.",
+      tempoDesc: "⏱️ Noktasal 30-45 sn statik nefes • Yavaş ritmik kayma",
+      biomech: "Torakal kifozu açarak öne eğik postürü düzeltir, boyun omurlarına binen kompresyonu hafifletir.",
+      searchQuery: "thoracic spine foam rolling mobility physical therapy"
     }
   },
 
