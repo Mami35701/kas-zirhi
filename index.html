@@ -1113,6 +1113,37 @@ tr:hover td {
   color: #fff;
   background: rgba(59, 130, 246, 0.1);
 }
+
+.side-selector-wrap {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(59, 130, 246, 0.35);
+  border-radius: 20px;
+  padding: 2px 4px;
+  gap: 3px;
+  margin-right: 4px;
+}
+.side-toggle-btn {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.side-toggle-btn:hover {
+  color: #fff;
+}
+.side-toggle-btn.active {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+}
+
 .set-check-btn.completed {
   background: rgba(34, 197, 94, 0.18);
   border-color: var(--green);
@@ -1940,7 +1971,7 @@ body {
         </div>
 
         <!-- Big Start Workout Action Button -->
-        <button type="button" class="btn-start-gym" onclick="TodayEngine.startWorkoutSmart()">
+        <button id="btnStartWorkoutToday" type="button" class="btn-start-gym" onclick="TodayEngine.startWorkoutSmart()">
           <span>🏋️‍♂️</span>
           <span>Antrenmanı Başlat (Salon Modu)</span>
           <span>➔</span>
@@ -3092,6 +3123,10 @@ body {
 
       <div class="quick-set-row">
         <span class="quick-set-label">Hızlı Set:</span>
+        <span class="side-selector-wrap">
+          <button type="button" class="side-toggle-btn active" data-side="sol" onclick="QuickSetEngine.selectSide(this, 'Single Arm Cable Row', 'sol')">◀ Sol (Öncelikli)</button>
+          <button type="button" class="side-toggle-btn" data-side="sag" onclick="QuickSetEngine.selectSide(this, 'Single Arm Cable Row', 'sag')">Sağ ▶</button>
+        </span>
         <button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Single Arm Cable Row', 1, 60)">1. Set [ ✓ ]</button><button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Single Arm Cable Row', 2, 60)">2. Set [ ✓ ]</button><button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Single Arm Cable Row', 3, 60)">3. Set [ ✓ ]</button>
         
     <div class="stepper-group">
@@ -4275,6 +4310,10 @@ body {
 
       <div class="quick-set-row">
         <span class="quick-set-label">Hızlı Set:</span>
+        <span class="side-selector-wrap">
+          <button type="button" class="side-toggle-btn active" data-side="sol" onclick="QuickSetEngine.selectSide(this, 'Single Arm DB Row', 'sol')">◀ Sol (Öncelikli)</button>
+          <button type="button" class="side-toggle-btn" data-side="sag" onclick="QuickSetEngine.selectSide(this, 'Single Arm DB Row', 'sag')">Sağ ▶</button>
+        </span>
         <button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Single Arm DB Row', 1, 60)">1. Set [ ✓ ]</button><button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Single Arm DB Row', 2, 60)">2. Set [ ✓ ]</button><button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Single Arm DB Row', 3, 60)">3. Set [ ✓ ]</button>
         
     <div class="stepper-group">
@@ -4403,6 +4442,10 @@ body {
 
       <div class="quick-set-row">
         <span class="quick-set-label">Hızlı Set:</span>
+        <span class="side-selector-wrap">
+          <button type="button" class="side-toggle-btn active" data-side="sol" onclick="QuickSetEngine.selectSide(this, 'DB External Rotation', 'sol')">◀ Sol (Öncelikli)</button>
+          <button type="button" class="side-toggle-btn" data-side="sag" onclick="QuickSetEngine.selectSide(this, 'DB External Rotation', 'sag')">Sağ ▶</button>
+        </span>
         <button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'DB External Rotation', 1, 45)">1. Set [ ✓ ]</button><button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'DB External Rotation', 2, 45)">2. Set [ ✓ ]</button>
         
     <div class="stepper-group">
@@ -4922,6 +4965,10 @@ body {
 
       <div class="quick-set-row">
         <span class="quick-set-label">Hızlı Set:</span>
+        <span class="side-selector-wrap">
+          <button type="button" class="side-toggle-btn active" data-side="sol" onclick="QuickSetEngine.selectSide(this, 'Eksantrik Heel Drop (Basamak)', 'sol')">◀ Sol (Öncelikli)</button>
+          <button type="button" class="side-toggle-btn" data-side="sag" onclick="QuickSetEngine.selectSide(this, 'Eksantrik Heel Drop (Basamak)', 'sag')">Sağ ▶</button>
+        </span>
         <button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Eksantrik Heel Drop (Basamak)', 1, 60)">1. Set [ ✓ ]</button><button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Eksantrik Heel Drop (Basamak)', 2, 60)">2. Set [ ✓ ]</button>
         
     <div class="stepper-group">
@@ -5185,6 +5232,10 @@ body {
 
       <div class="quick-set-row">
         <span class="quick-set-label">Hızlı Set:</span>
+        <span class="side-selector-wrap">
+          <button type="button" class="side-toggle-btn active" data-side="sol" onclick="QuickSetEngine.selectSide(this, 'Single Arm Cable Row', 'sol')">◀ Sol (Öncelikli)</button>
+          <button type="button" class="side-toggle-btn" data-side="sag" onclick="QuickSetEngine.selectSide(this, 'Single Arm Cable Row', 'sag')">Sağ ▶</button>
+        </span>
         <button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Single Arm Cable Row', 1, 60)">1. Set [ ✓ ]</button><button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Single Arm Cable Row', 2, 60)">2. Set [ ✓ ]</button><button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Single Arm Cable Row', 3, 60)">3. Set [ ✓ ]</button>
         
     <div class="stepper-group">
@@ -5896,6 +5947,10 @@ body {
 
       <div class="quick-set-row">
         <span class="quick-set-label">Hızlı Set:</span>
+        <span class="side-selector-wrap">
+          <button type="button" class="side-toggle-btn active" data-side="sol" onclick="QuickSetEngine.selectSide(this, 'Eksantrik Heel Drop', 'sol')">◀ Sol (Öncelikli)</button>
+          <button type="button" class="side-toggle-btn" data-side="sag" onclick="QuickSetEngine.selectSide(this, 'Eksantrik Heel Drop', 'sag')">Sağ ▶</button>
+        </span>
         <button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Eksantrik Heel Drop', 1, 60)">1. Set [ ✓ ]</button><button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Eksantrik Heel Drop', 2, 60)">2. Set [ ✓ ]</button><button type="button" class="set-check-btn" onclick="QuickSetEngine.toggleSet(this, 'Eksantrik Heel Drop', 3, 60)">3. Set [ ✓ ]</button>
         
     <div class="stepper-group">
@@ -7905,18 +7960,40 @@ body {
           </select>
         </div>
 
-        <div>
-          <label style="display: block; font-size: 0.82rem; color: var(--text-muted); margin-bottom: 4px; font-weight: 600;">⚠️ Seans Sonu Ağrı / Batma Durumu:</label>
-          <div style="display: flex; gap: 12px; font-size: 0.85rem; flex-wrap: wrap;">
-            <label style="display: flex; align-items: center; gap: 6px; color: #10b981; cursor: pointer;">
-              <input type="radio" name="finishPainLevel" value="0" checked> Sıfır Ağrı
-            </label>
-            <label style="display: flex; align-items: center; gap: 6px; color: #f59e0b; cursor: pointer;">
-              <input type="radio" name="finishPainLevel" value="2"> Hafif Sızı (1-3)
-            </label>
-            <label style="display: flex; align-items: center; gap: 6px; color: #ef4444; cursor: pointer;">
-              <input type="radio" name="finishPainLevel" value="5"> Belirgin Ağrı (≥4)
-            </label>
+                <div style="background: rgba(15, 23, 42, 0.7); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 12px 14px;">
+          <div style="font-size: 0.82rem; color: var(--cyan); margin-bottom: 10px; font-weight: 700; display: flex; justify-content: space-between;">
+            <span>⚠️ Seans Sonu Klinik Ağrı Triyajı</span>
+            <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">Bölge Bazlı Bağımsız Giriş</span>
+          </div>
+          
+          <!-- Boyun C5-7 -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.82rem; flex-wrap: wrap; gap: 4px;">
+            <span style="color: #fff; font-weight: 600;">🧠 Boyun / C5-7:</span>
+            <div style="display: flex; gap: 10px;">
+              <label style="color: #10b981; cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="radio" name="finishPainNeck" value="0" checked> 0 Yok</label>
+              <label style="color: #f59e0b; cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="radio" name="finishPainNeck" value="2"> 2 Hafif</label>
+              <label style="color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="radio" name="finishPainNeck" value="5"> 5+ Sızı ⚠️</label>
+            </div>
+          </div>
+
+          <!-- Sol Omuz / Skapula -->
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; font-size: 0.82rem; flex-wrap: wrap; gap: 4px;">
+            <span style="color: #fff; font-weight: 600;">💪 Sol Omuz / Skapula:</span>
+            <div style="display: flex; gap: 10px;">
+              <label style="color: #10b981; cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="radio" name="finishPainShoulder" value="0" checked> 0 Yok</label>
+              <label style="color: #f59e0b; cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="radio" name="finishPainShoulder" value="2"> 2 Hafif</label>
+              <label style="color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="radio" name="finishPainShoulder" value="5"> 5+ Sızı ⚠️</label>
+            </div>
+          </div>
+
+          <!-- Aşil Tendon -->
+          <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.82rem; flex-wrap: wrap; gap: 4px;">
+            <span style="color: #fff; font-weight: 600;">🦶 Aşil Tendonları:</span>
+            <div style="display: flex; gap: 10px;">
+              <label style="color: #10b981; cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="radio" name="finishPainAchilles" value="0" checked> 0 Yok</label>
+              <label style="color: #f59e0b; cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="radio" name="finishPainAchilles" value="2"> 2 Hafif</label>
+              <label style="color: #ef4444; cursor: pointer; display: flex; align-items: center; gap: 4px;"><input type="radio" name="finishPainAchilles" value="5"> 5+ Ağrı ⚠️</label>
+            </div>
           </div>
         </div>
 
@@ -7928,7 +8005,7 @@ body {
 
       <div style="display: flex; gap: 10px;">
         <button type="button" class="btn-ctrl secondary" style="flex: 1;" onclick="QuickSetEngine.closeFinishModal()">Vazgeç</button>
-        <button type="button" class="btn-ctrl primary" style="flex: 2; background: linear-gradient(135deg, #059669 0%, #10b981 100%); border: none;" onclick="QuickSetEngine.saveFinishedWorkout()">
+        <button id="btnConfirmFinishWorkout" type="button" class="btn-ctrl primary" style="flex: 2; background: linear-gradient(135deg, #059669 0%, #10b981 100%); border: none;" onclick="QuickSetEngine.saveFinishedWorkout()">
           💾 Seansı Kesin Kaydet
         </button>
       </div>
@@ -8791,14 +8868,31 @@ const ClinicalRulesEngine = {
 // DATE SIMULATOR & TIMELINE ENGINE
 // ============================================================
 const DateSimulatorEngine = {
-  currentSimulatedDate: new Date('2026-10-14'),
+  currentSimulatedDate: new Date(),
+  isSimulated: false,
 
   init() {
+    const saved = sessionStorage.getItem('kas_zirhi_sim_date');
+    if (saved) {
+      this.currentSimulatedDate = new Date(saved);
+      this.isSimulated = true;
+    } else {
+      this.currentSimulatedDate = new Date();
+      this.isSimulated = false;
+    }
     this.checkDateRules();
   },
 
   simulate(dateStr) {
-    this.currentSimulatedDate = new Date(dateStr);
+    if (dateStr) {
+      this.currentSimulatedDate = new Date(dateStr);
+      this.isSimulated = true;
+      sessionStorage.setItem('kas_zirhi_sim_date', dateStr);
+    } else {
+      this.currentSimulatedDate = new Date();
+      this.isSimulated = false;
+      sessionStorage.removeItem('kas_zirhi_sim_date');
+    }
     this.checkDateRules();
   },
 
@@ -9133,6 +9227,14 @@ const PwaEngine = {
 const QuickSetEngine = {
   workoutSessionData: {},
 
+  isUnilateral(name) {
+    if (!name) return false;
+    const n = name.toLowerCase();
+    return n.includes('single arm') || n.includes('tek kol') || n.includes('external rotation') || 
+           n.includes('dış rotasyon') || n.includes('heel drop') || n.includes('tek bacak') ||
+           n.includes('sol kol') || n.includes('asimetri') || n.includes('her taraf');
+  },
+
   getDefaultWeight(name) {
     return this.getLastOrInitialWeight(name);
   },
@@ -9177,6 +9279,32 @@ const QuickSetEngine = {
     this.restoreActiveSession();
   },
 
+  selectSide(btn, exName, side) {
+    if (!this.workoutSessionData[exName]) {
+      const initW = this.getLastOrInitialWeight(exName);
+      this.workoutSessionData[exName] = { sets: [], weight: initW !== null ? initW : 0, reps: 12, activeSide: side };
+    } else {
+      this.workoutSessionData[exName].activeSide = side;
+    }
+
+    const card = btn.closest('.exercise-card');
+    if (card) {
+      card.querySelectorAll('.side-toggle-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      // Update checkmark state of buttons for the selected side
+      const buttons = card.querySelectorAll('.set-check-btn');
+      const sets = this.workoutSessionData[exName].sets || [];
+      buttons.forEach((b, idx) => {
+        const setNum = idx + 1;
+        const exists = sets.some(s => s.set_number === setNum && s.side === side);
+        b.classList.toggle('completed', exists);
+      });
+    }
+    this.saveActiveSession();
+    this.updateLiveIndicator();
+  },
+
   saveActiveSession() {
     try {
       const activeWeekBtn = document.querySelector('#workoutWeekTabNav .tab-btn.active');
@@ -9208,12 +9336,22 @@ const QuickSetEngine = {
         for (const [exName, exInfo] of Object.entries(this.workoutSessionData)) {
           const card = document.querySelector(`.exercise-card[data-name="${exName}"]`);
           if (card) {
+            const isUni = this.isUnilateral(exName);
+            const activeSide = exInfo.activeSide || (isUni ? 'sol' : 'cift');
+            
+            // Sync side button UI
+            if (isUni) {
+              card.querySelectorAll('.side-toggle-btn').forEach(b => {
+                b.classList.toggle('active', b.getAttribute('data-side') === activeSide);
+              });
+            }
+
             if (exInfo.sets && exInfo.sets.length > 0) {
               const buttons = card.querySelectorAll('.set-check-btn');
-              exInfo.sets.forEach(s => {
-                if (buttons[s.set_number - 1]) {
-                  buttons[s.set_number - 1].classList.add('completed');
-                }
+              buttons.forEach((btn, idx) => {
+                const setNum = idx + 1;
+                const completed = exInfo.sets.some(s => s.set_number === setNum && (!isUni || s.side === activeSide));
+                btn.classList.toggle('completed', completed);
               });
             }
             if (exInfo.isAlternative && exInfo.altName) {
@@ -9258,9 +9396,15 @@ const QuickSetEngine = {
   stepWeight(name, delta, btn) {
     if (!this.workoutSessionData[name]) {
       const initW = this.getLastOrInitialWeight(name);
-      this.workoutSessionData[name] = { sets: [], weight: initW !== null ? initW : (delta > 0 ? 10 : 0), reps: 12 };
+      this.workoutSessionData[name] = { 
+        sets: [], 
+        weight: initW !== null ? initW : (delta > 0 ? 10 : 0), 
+        reps: 12,
+        activeSide: this.isUnilateral(name) ? 'sol' : 'cift'
+      };
     }
-    let current = this.workoutSessionData[name].weight !== null && this.workoutSessionData[name].weight !== undefined ? this.workoutSessionData[name].weight : 0;
+    let current = parseFloat(this.workoutSessionData[name].weight);
+    if (isNaN(current)) current = 0;
     current = Math.max(0, parseFloat((current + delta).toFixed(1)));
     this.workoutSessionData[name].weight = current;
 
@@ -9275,9 +9419,15 @@ const QuickSetEngine = {
 
   stepReps(name, delta, btn) {
     if (!this.workoutSessionData[name]) {
-      this.workoutSessionData[name] = { sets: [], weight: this.getLastOrInitialWeight(name), reps: 12 };
+      this.workoutSessionData[name] = { 
+        sets: [], 
+        weight: this.getLastOrInitialWeight(name), 
+        reps: 12,
+        activeSide: this.isUnilateral(name) ? 'sol' : 'cift'
+      };
     }
-    let current = this.workoutSessionData[name].reps || 12;
+    let current = parseInt(this.workoutSessionData[name].reps, 10);
+    if (isNaN(current)) current = 12;
     current = Math.max(1, current + delta);
     this.workoutSessionData[name].reps = current;
 
@@ -9301,28 +9451,57 @@ const QuickSetEngine = {
   toggleSet(btn, exerciseName, setNum, restSeconds) {
     btn.classList.toggle('completed');
     const isCompleted = btn.classList.contains('completed');
-    
+    const isUni = this.isUnilateral(exerciseName);
+
     if (!this.workoutSessionData[exerciseName]) {
       const initW = this.getLastOrInitialWeight(exerciseName);
-      this.workoutSessionData[exerciseName] = { sets: [], weight: initW !== null ? initW : 0, reps: 12 };
+      this.workoutSessionData[exerciseName] = { 
+        sets: [], 
+        weight: initW !== null ? initW : 0, 
+        reps: 12,
+        activeSide: isUni ? 'sol' : 'cift'
+      };
+    }
+
+    const activeSide = this.workoutSessionData[exerciseName].activeSide || (isUni ? 'sol' : 'cift');
+
+    // Get Target RPE dynamically based on card or week phase
+    let targetRpe = 8;
+    const card = btn ? btn.closest('.exercise-card') : document.querySelector(`.exercise-card[data-name="${exerciseName}"]`);
+    if (card) {
+      const rpeTag = card.querySelector('.ex-tag.rpe');
+      if (rpeTag) {
+        const m = rpeTag.textContent.match(/RPE:\s*([0-9]+)/i);
+        if (m) targetRpe = parseInt(m[1], 10);
+      }
+    } else {
+      const activeWeekBtn = document.querySelector('#workoutWeekTabNav .tab-btn.active');
+      if (activeWeekBtn && activeWeekBtn.textContent.includes('Hafta 1')) {
+        targetRpe = 6;
+      }
     }
 
     if (isCompleted) {
-      const weight = this.workoutSessionData[exerciseName].weight !== undefined && this.workoutSessionData[exerciseName].weight !== null ? this.workoutSessionData[exerciseName].weight : 0;
-      const reps = this.workoutSessionData[exerciseName].reps || 12;
+      let weight = parseFloat(this.workoutSessionData[exerciseName].weight);
+      if (isNaN(weight)) weight = 0;
+      let reps = parseInt(this.workoutSessionData[exerciseName].reps, 10);
+      if (isNaN(reps)) reps = 12;
       
-      this.workoutSessionData[exerciseName].sets = this.workoutSessionData[exerciseName].sets.filter(s => s.set_number !== setNum);
+      // Remove any existing set for this set_number AND side
+      this.workoutSessionData[exerciseName].sets = this.workoutSessionData[exerciseName].sets.filter(s => !(s.set_number === setNum && s.side === activeSide));
+      
       this.workoutSessionData[exerciseName].sets.push({
         set_number: setNum,
-        side: 'cift',
+        side: activeSide,
         weight_kg: weight,
         reps: reps,
-        rpe: 8
+        rpe: targetRpe
       });
 
       const restSec = parseInt(restSeconds) || 60;
       if (restSec > 0 && typeof TimerEngine !== 'undefined') {
-        TimerEngine.label = `${exerciseName} (${setNum}. Set Mola)`;
+        const sidePrefix = isUni ? `[${activeSide.toUpperCase()}] ` : '';
+        TimerEngine.label = `${sidePrefix}${exerciseName} (${setNum}. Set Mola)`;
         TimerEngine.setDuration(restSec);
         TimerEngine.start();
       }
@@ -9335,7 +9514,7 @@ const QuickSetEngine = {
         try { navigator.vibrate([40, 50, 40]); } catch(e) {}
       }
     } else {
-      this.workoutSessionData[exerciseName].sets = this.workoutSessionData[exerciseName].sets.filter(s => s.set_number !== setNum);
+      this.workoutSessionData[exerciseName].sets = this.workoutSessionData[exerciseName].sets.filter(s => !(s.set_number === setNum && s.side === activeSide));
     }
 
     this.saveActiveSession();
@@ -9389,6 +9568,14 @@ const QuickSetEngine = {
     if (dayNameEl) dayNameEl.textContent = dayName;
     if (countsEl) countsEl.textContent = `${completedExCount} Hareket • ${totalSets} Set Başarıyla Yapıldı`;
 
+    // Dynamic RPE default in modal based on current week
+    const rpeSelect = document.getElementById('finishRpeSelect');
+    if (rpeSelect) {
+      const activeWeekBtn = document.querySelector('#workoutWeekTabNav .tab-btn.active');
+      const isWeek1 = activeWeekBtn && activeWeekBtn.textContent.includes('Hafta 1');
+      rpeSelect.value = isWeek1 ? '6' : '8';
+    }
+
     modal.classList.add('open');
   },
 
@@ -9414,12 +9601,14 @@ const QuickSetEngine = {
     const duration = parseInt(document.getElementById('finishDurationInput')?.value) || 55;
     const rpe = parseFloat(document.getElementById('finishRpeSelect')?.value) || 8;
     
-    const painRadio = document.querySelector('input[name="finishPainLevel"]:checked');
-    const painVal = parseInt(painRadio ? painRadio.value : '0') || 0;
+    // Read independent 3-region pain scores
+    const neckPain = parseInt(document.querySelector('input[name="finishPainNeck"]:checked')?.value || '0');
+    const shoulderPain = parseInt(document.querySelector('input[name="finishPainShoulder"]:checked')?.value || '0');
+    const achillesPain = parseInt(document.querySelector('input[name="finishPainAchilles"]:checked')?.value || '0');
 
     const notes = document.getElementById('finishNotesInput')?.value || '';
 
-    // Collect exercises
+    // Collect exercises with their sets (including sol/sag distinctions)
     const exercises = [];
     for (const [name, data] of Object.entries(this.workoutSessionData)) {
       if (data.sets && data.sets.length > 0) {
@@ -9432,6 +9621,10 @@ const QuickSetEngine = {
       }
     }
 
+    // Check if user checked daily habits today (honest telemetry, no fake static numbers)
+    const waterChecked = localStorage.getItem('kas_zirhi_task_water_daily') === 'true';
+    const sleepChecked = localStorage.getItem('kas_zirhi_task_sleep_8h') === 'true';
+
     const entry = {
       id: 'log_' + Date.now(),
       date: new Date().toISOString().split('T')[0],
@@ -9440,16 +9633,16 @@ const QuickSetEngine = {
       duration_min: duration,
       exercises: exercises,
       pain: {
-        neck: painVal >= 4 ? painVal : 0,
-        left_shoulder: painVal >= 4 ? painVal : 0,
+        neck: neckPain,
+        left_shoulder: shoulderPain,
         left_arm: 0,
-        achilles: painVal >= 4 ? painVal : 0,
+        achilles: achillesPain,
         lower_back: 0
       },
       morning_achilles_pain: parseInt(localStorage.getItem('kas_zirhi_today_achilles') || '0'),
-      sleep_hours: 7.5,
-      sleep_quality: 4,
-      water_liters: 3.5,
+      sleep_hours: sleepChecked ? 8.0 : null,
+      sleep_quality: sleepChecked ? 4 : null,
+      water_liters: waterChecked ? 3.5 : null,
       mood: 4,
       notes: notes ? `[RPE ${rpe}] ${notes}` : `[RPE ${rpe}] Tamamlandı`
     };
@@ -9467,8 +9660,6 @@ const QuickSetEngine = {
     alert(`🎉 Harika iş! ${dayText} seansınız (${totalSets} set) başarıyla kaydedildi ve kokpite işlendi.`);
   }
 };
-
-
 
 const RpeEngine = {
   showModal(highlightRpe) {
@@ -9966,24 +10157,52 @@ const TodayEngine = {
   startWorkoutSmart() {
     NavigationEngine.switchTab('workout');
     
-    // Check last session day to pick next day
+    // Check last session day to pick next day automatically
     const logs = LogEngine.getLogs();
     if (logs.length > 0) {
       const lastDay = (logs[0].day || '').toLowerCase();
-      if (lastDay.includes('gün 1')) {
-        // Activate Gün 2
+      const w1Btn = document.querySelectorAll('#workoutWeekTabNav .tab-btn')[0];
+      const w2Btn = document.querySelectorAll('#workoutWeekTabNav .tab-btn')[1];
+      const w3Btn = document.querySelectorAll('#workoutWeekTabNav .tab-btn')[2];
+
+      if (lastDay.includes('gün 1') || lastDay.includes('gun 1')) {
+        // Activate Gün 2 (Week 1)
+        if (w1Btn) switchTab('workoutTabContainer', 'tabWeek1', w1Btn);
         const btn = document.querySelector('#week1DayNav .day-tab-btn:nth-child(2)');
         if (btn) switchWorkoutDay('tabWeek1', 'day_w1d2', btn);
-      } else if (lastDay.includes('gün 2')) {
-        // Activate Gün 3
+      } else if (lastDay.includes('gün 2') || lastDay.includes('gun 2')) {
+        // Activate Gün 3 (Week 1)
+        if (w1Btn) switchTab('workoutTabContainer', 'tabWeek1', w1Btn);
         const btn = document.querySelector('#week1DayNav .day-tab-btn:nth-child(3)');
         if (btn) switchWorkoutDay('tabWeek1', 'day_w1d3', btn);
-      } else if (lastDay.includes('gün 3')) {
+      } else if (lastDay.includes('gün 3') || lastDay.includes('gun 3')) {
         // Switch to Week 2 Gün 4
-        const w2Btn = document.querySelectorAll('#workoutWeekTabNav .tab-btn')[1];
         if (w2Btn) switchTab('workoutTabContainer', 'tabWeek2', w2Btn);
         const btn = document.querySelector('#week2DayNav .day-tab-btn:nth-child(1)');
         if (btn) switchWorkoutDay('tabWeek2', 'day_w2d4', btn);
+      } else if (lastDay.includes('gün 4') || lastDay.includes('gun 4')) {
+        // Switch to Week 2 Gün 5
+        if (w2Btn) switchTab('workoutTabContainer', 'tabWeek2', w2Btn);
+        const btn = document.querySelector('#week2DayNav .day-tab-btn:nth-child(2)');
+        if (btn) switchWorkoutDay('tabWeek2', 'day_w2d5', btn);
+      } else if (lastDay.includes('gün 5') || lastDay.includes('gun 5')) {
+        // Switch to Week 2 Gün 6
+        if (w2Btn) switchTab('workoutTabContainer', 'tabWeek2', w2Btn);
+        const btn = document.querySelector('#week2DayNav .day-tab-btn:nth-child(3)');
+        if (btn) switchWorkoutDay('tabWeek2', 'day_w2d6', btn);
+      } else if (lastDay.includes('gün 6') || lastDay.includes('gun 6')) {
+        // Switch to Week 2 Gün 7
+        if (w2Btn) switchTab('workoutTabContainer', 'tabWeek2', w2Btn);
+        const btn = document.querySelector('#week2DayNav .day-tab-btn:nth-child(4)');
+        if (btn) switchWorkoutDay('tabWeek2', 'day_w2d7', btn);
+      } else if (lastDay.includes('gün 7') || lastDay.includes('gun 7')) {
+        // Switch to Week 3 Konsolidasyon
+        if (w3Btn) switchTab('workoutTabContainer', 'tabWeek3', w3Btn);
+      } else if (lastDay.includes('hafta 3') || lastDay.includes('konsolidasyon')) {
+        // New cycle: return to Week 1 Gün 1
+        if (w1Btn) switchTab('workoutTabContainer', 'tabWeek1', w1Btn);
+        const btn = document.querySelector('#week1DayNav .day-tab-btn:nth-child(1)');
+        if (btn) switchWorkoutDay('tabWeek1', 'day_w1d1', btn);
       }
     }
   },
